@@ -82,9 +82,7 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_color(c_white);
 draw_set_font(fnt_small);
-draw_set_alpha(menu_fade);
-draw_text(room_width/2,room_height/2 + 50,"PRESS &lt;SPACE&gt; TO RESPAWN!");
-draw_set_alpha(1);
+draw_text_colour(room_width/2, room_height/2 + 50, "PRESS &lt;SPACE&gt; TO RESPAWN!", c_white, c_white, c_white, c_white, menu_fade);
 </string>
           </argument>
         </arguments>
@@ -108,7 +106,7 @@ draw_set_alpha(1);
           <argument>
             <kind>1</kind>
             <string>///RESPAWN
-if (menu_fade == 1) {
+if (menu_fade &gt;= 1) {
     instance_create(room_width/2,room_height/2,obj_player);
     // destroy text
     instance_destroy();

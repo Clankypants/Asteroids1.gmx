@@ -84,9 +84,7 @@ draw_set_color(c_white);
 draw_set_font(fnt_big);
 draw_text(room_width/2,room_height/2,"GAME OVER");
 draw_set_font(fnt_small);
-draw_set_alpha(menu_fade);
-draw_text(room_width/2,room_height/2 + 50,"PRESS &lt;SPACE&gt; TO RESTART!");
-draw_set_alpha(1);
+draw_text_colour(room_width/2, room_height/2 + 50, "PRESS &lt;SPACE&gt; TO RESTART!", c_white, c_white, c_white, c_white, menu_fade);
 </string>
           </argument>
         </arguments>
@@ -110,7 +108,7 @@ draw_set_alpha(1);
           <argument>
             <kind>1</kind>
             <string>///RESTART
-if (menu_fade == 1) {
+if (menu_fade &gt;= 1) {
     game_restart();
 }
 </string>
