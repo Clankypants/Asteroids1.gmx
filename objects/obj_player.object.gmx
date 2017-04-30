@@ -68,6 +68,11 @@ if (warp &amp;&amp; !global.debug) {
         warp = false;
     }
 }
+
+// if ship passes beyond wrap, rotate ship to point toward center
+if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width + 100) {
+    direction = point_direction(x, y, room_width / 2, room_width / 2);
+}
 </string>
           </argument>
         </arguments>
@@ -94,22 +99,22 @@ if (warp &amp;&amp; !global.debug) {
 if (!spr_player.warp) {
     var randomangle = random(360);
     var o;
-    o = instance_create(x,y,obj_deadplayer);
-    o.angle = 0 + randomangle;
-    o = instance_create(x,y,obj_deadplayer);
-    o.angle = 120 + randomangle;
-    o = instance_create(x,y,obj_deadplayer);
-    o.angle = 240 + randomangle;
-    
+    for (i = 0; i &lt; 6; i++) {
+        o = instance_create(x,y,obj_deadplayer);
+        o.angle = (i * 60) + randomangle;
+        o.speed = random(3);
+        o.direction = o.angle;
+        o.image_angle = o.angle;
+    }
+    /*
     with (obj_deadplayer) {
         direction = angle;
         image_angle = angle;
-        speed = 3;
     }
-    
+    */
     if (global.life &gt; 0) {
         global.life -= 1;
-        instance_create(room_width/2,room_height/2,obj_player);
+        instance_create(room_width/2,room_height/2,obj_respawn);
     } else {
         instance_create(0,0,obj_gameover);
     }

@@ -39,6 +39,8 @@
     <object>objects\obj_bulletburst</object>
     <object>objects\obj_explosion_l</object>
     <object>objects\obj_explosion_s</object>
+    <object>objects\obj_start</object>
+    <object>objects\obj_respawn</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_game</room>

@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>// set animation speed
+            <string>///set animation speed
 image_speed = 1/6;
 rotationspeed = 0;
 </string>

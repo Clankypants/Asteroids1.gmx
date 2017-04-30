@@ -197,7 +197,8 @@ if (speed &gt; 3) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, c_white, 1);
+            <string>///draw asteroid
+draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, c_white, 1);
 // debug display
 if (global.debug) {
     draw_set_halign(fa_center);

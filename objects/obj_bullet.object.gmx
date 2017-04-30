@@ -51,34 +51,6 @@ if (shotpower &lt; 25) {
         </arguments>
       </action>
     </event>
-    <event eventtype="1" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///burst
-
-// create bulletburst object where bullet dies
-var inst = instance_create(x,y,obj_bulletburst);
-inst.image_angle = image_angle;
-inst.shotpower = shotpower;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
@@ -97,7 +69,7 @@ inst.shotpower = shotpower;
           <argument>
             <kind>1</kind>
             <string>///bullet decay
-if (current_time - start_time &gt; 800 || x &lt; -100 || y &lt; -100 || x &gt; room_width + 100 || y &gt; room_height + 100) {
+if (x &lt; -100 || y &lt; -100 || x &gt; room_width + 100 || y &gt; room_height + 100) {
     instance_destroy();
 }
 </string>
@@ -125,6 +97,31 @@ if (current_time - start_time &gt; 800 || x &lt; -100 || y &lt; -100 || x &gt; r
             <string>///take damage / destroy
 hp = hp - other.shotpower;
 if (hp &lt;= 0) instance_destroy();
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///burst
+// create bulletburst object where bullet dies
+var inst = instance_create(x,y,obj_bulletburst);
+inst.image_angle = image_angle;
+inst.shotpower = shotpower;
 </string>
           </argument>
         </arguments>
