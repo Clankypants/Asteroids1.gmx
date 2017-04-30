@@ -65,7 +65,7 @@ bug = false;
 
 // play explosion animation
 explosion_instance = instance_create(x,y,obj_explosion_l);
-explosion_instance.direction = image_angle;
+explosion_instance.direction = direction;
 explosion_instance.speed = speed;
 explosion_instance.rotationspeed = rotationspeed;
 
@@ -137,7 +137,8 @@ y_speed = lengthdir_y(speed, direction);
 
 // get the speeds and direction of the burst relative to the asteroid
 burst_power = .2;
-burst_direction = point_direction(other.x, other.y, x, y);
+burst_direction = other.image_angle;
+//burst_direction = point_direction(other.x, other.y, x, y);
 burst_x_speed = lengthdir_x(burst_power, burst_direction);
 burst_y_speed = lengthdir_y(burst_power, burst_direction);
 
