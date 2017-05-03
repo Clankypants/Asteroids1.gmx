@@ -39,6 +39,12 @@ warptime = 240;
 
 // set thrust value
 thrust = false;
+
+// set shield angle
+shield_angle = -1;
+shield_timer = 30;
+shield_strength = 0;
+shield_power = 100;
 </string>
           </argument>
         </arguments>
@@ -61,7 +67,9 @@ thrust = false;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///countdown warp time
+            <string>///player updates
+
+// countdown warp time
 if (warp &amp;&amp; !global.debug) {
     warptime -= 1;
     if (warptime &lt;= 0) {
@@ -72,6 +80,16 @@ if (warp &amp;&amp; !global.debug) {
 // if ship passes beyond wrap, rotate ship to point toward center
 if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width + 100) {
     direction = point_direction(x, y, room_width / 2, room_width / 2);
+}
+
+// drop shield glow
+if (shield_strength &gt; 0) {
+    shield_strength--;
+}
+
+// re-fill shield
+if (shield_power &lt; 100) {
+    shield_power += .02;
 }
 </string>
           </argument>
@@ -95,31 +113,61 @@ if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width +
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///generate debris
+            <string>///collision effects
+
+// shield flash
+shield_angle = point_direction(x, y, other.x, other.y);
+shield_strength = shield_timer;
+if (object_get_name(other.object_index) == "obj_asteroid") {
+    shield_power = shield_power - 40;
+} else {
+    shield_power = shield_power - 10;
+}
+
+// generate debris
 if (!spr_player.warp) {
-    var randomangle = random(360);
-    var o;
-    for (i = 0; i &lt; 6; i++) {
-        o = instance_create(x,y,obj_deadplayer);
-        o.angle = (i * 60) + randomangle;
-        o.speed = random(3);
-        o.direction = o.angle;
-        o.image_angle = o.angle;
+    if (shield_power &lt;= 0) {
+        var randomangle = random(360);
+        var o;
+        for (i = 0; i &lt; 6; i++) {
+            o = instance_create(x,y,obj_deadplayer);
+            o.angle = (i * 60) + randomangle;
+            o.speed = random(3);
+            o.direction = o.angle;
+            o.image_angle = o.angle;
+        }
+        /*
+        with (obj_deadplayer) {
+            direction = angle;
+            image_angle = angle;
+        }
+        */
+        if (global.life &gt; 0) {
+            global.life -= 1;
+            instance_create(room_width/2,room_height/2,obj_respawn);
+        } else {
+            instance_create(0,0,obj_gameover);
+        }
+        
+        instance_destroy();
     }
-    /*
-    with (obj_deadplayer) {
-        direction = angle;
-        image_angle = angle;
+    // get player's current speed
+    x_speed = lengthdir_x(speed, direction);
+    y_speed = lengthdir_y(speed, direction);
+    // get asteroid's speed and direction
+    asteroid_direction = other.direction;
+    asteroid_x_speed = lengthdir_x(100, asteroid_direction);
+    asteroid_y_speed = lengthdir_y(100, asteroid_direction);
+    // calculate the new x and y speeds for the player
+    x_speed += asteroid_x_speed;
+    y_speed += asteroid_y_speed;
+    // apply the new direction and speed for the player
+    direction = point_direction(x, y, x+x_speed, y+y_speed);
+    speed = point_distance(x, y, x+x_speed, y+y_speed);
+    if (speed &gt; 3) {
+        speed = 3;
     }
-    */
-    if (global.life &gt; 0) {
-        global.life -= 1;
-        instance_create(room_width/2,room_height/2,obj_respawn);
-    } else {
-        instance_create(0,0,obj_gameover);
-    }
-    
-    instance_destroy();
+    with(other) instance_destroy();
 }
 </string>
           </argument>
@@ -294,6 +342,11 @@ if (keyboard_check(vk_down)) {
 
 // draw ship
 draw_sprite_ext(spr_player,1,x,y,1,1,image_angle,c_white,1);
+
+// draw shield
+if (shield_strength &gt; 0) {
+    draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,c_white,shield_strength / shield_timer);
+}
 </string>
           </argument>
         </arguments>
