@@ -43,8 +43,7 @@ thrust = false;
 // set shield angle
 shield_angle = -1;
 shield_timer = 30;
-shield_strength = 0;
-shield_power = 100;
+shield_glow = 0;
 </string>
           </argument>
         </arguments>
@@ -83,13 +82,13 @@ if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width +
 }
 
 // drop shield glow
-if (shield_strength &gt; 0) {
-    shield_strength--;
+if (shield_glow &gt; 0) {
+    shield_glow--;
 }
 
 // re-fill shield
-if (shield_power &lt; 100) {
-    shield_power += .02;
+if (global.shield_power &lt; 100) {
+    global.shield_power += .02;
 }
 </string>
           </argument>
@@ -117,16 +116,17 @@ if (shield_power &lt; 100) {
 
 // shield flash
 shield_angle = point_direction(x, y, other.x, other.y);
-shield_strength = shield_timer;
+shield_glow = shield_timer;
 if (object_get_name(other.object_index) == "obj_asteroid") {
-    shield_power = shield_power - 40;
+    global.shield_power = global.shield_power - 40;
 } else {
-    shield_power = shield_power - 10;
+    global.shield_power = global.shield_power - 10;
 }
 
-// generate debris
+// impact with asteroid
 if (!spr_player.warp) {
-    if (shield_power &lt;= 0) {
+    // generate debris if shields are down
+    if (global.shield_power &lt;= 0) {
         var randomangle = random(360);
         var o;
         for (i = 0; i &lt; 6; i++) {
@@ -150,23 +150,25 @@ if (!spr_player.warp) {
         }
         
         instance_destroy();
+    } else {
+        // get player's current speed
+        x_speed = lengthdir_x(speed, direction);
+        y_speed = lengthdir_y(speed, direction);
+        // get asteroid's speed and direction
+        asteroid_direction = other.direction;
+        asteroid_x_speed = lengthdir_x(100, asteroid_direction);
+        asteroid_y_speed = lengthdir_y(100, asteroid_direction);
+        // calculate the new x and y speeds for the player
+        x_speed += asteroid_x_speed;
+        y_speed += asteroid_y_speed;
+        // apply the new direction and speed for the player
+        direction = point_direction(x, y, x+x_speed, y+y_speed);
+        speed = point_distance(x, y, x+x_speed, y+y_speed);
+        if (speed &gt; 3) {
+            speed = 3;
+        }
     }
-    // get player's current speed
-    x_speed = lengthdir_x(speed, direction);
-    y_speed = lengthdir_y(speed, direction);
-    // get asteroid's speed and direction
-    asteroid_direction = other.direction;
-    asteroid_x_speed = lengthdir_x(100, asteroid_direction);
-    asteroid_y_speed = lengthdir_y(100, asteroid_direction);
-    // calculate the new x and y speeds for the player
-    x_speed += asteroid_x_speed;
-    y_speed += asteroid_y_speed;
-    // apply the new direction and speed for the player
-    direction = point_direction(x, y, x+x_speed, y+y_speed);
-    speed = point_distance(x, y, x+x_speed, y+y_speed);
-    if (speed &gt; 3) {
-        speed = 3;
-    }
+    // destroy asteroid
     with(other) instance_destroy();
 }
 </string>
@@ -344,8 +346,8 @@ if (keyboard_check(vk_down)) {
 draw_sprite_ext(spr_player,1,x,y,1,1,image_angle,c_white,1);
 
 // draw shield
-if (shield_strength &gt; 0) {
-    draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,c_white,shield_strength / shield_timer);
+if (shield_glow &gt; 0) {
+    draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,c_white,shield_glow / shield_timer);
 }
 </string>
           </argument>

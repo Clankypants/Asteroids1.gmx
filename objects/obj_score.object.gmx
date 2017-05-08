@@ -33,7 +33,7 @@ global.shotpower = 0;
 global.debug = false;
 global.super = false;
 global.reset_asteroids = 0;
-
+global.shield_power = 100;
 </string>
           </argument>
         </arguments>
@@ -94,12 +94,9 @@ draw_text(64, 32, "SCORE: " + string(global.points));
 draw_text(64, 64, "SECTOR: " + string(global.sector));
 draw_text(64, 96, "LIVES: " + string(global.life));
 draw_text(64, 128, "POWER: " + string(global.shotpower));
-/*
 if (instance_exists(obj_player)) {
-    shield_power = int64(obj_player.shield_power);
-    draw_text(64, 160, "SHIELDS: " + string(shield_power));
+    draw_text(64, 160, "SHIELDS: " + string(floor(global.shield_power)));
 }
-*/
 if (global.debug) {
     draw_text(64, 192, "ASTEROIDS: " + string(instance_number(obj_asteroid)) + ", " + string(instance_number(obj_asteroid_s)) + ", " + string(global.reset_asteroids));
 }
