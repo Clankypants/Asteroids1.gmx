@@ -28,6 +28,8 @@
             <string>///generate asteroids
 if (!instance_exists(obj_asteroid)) {
     global.sector++;
+    global.warptime = 240;
+    global.warp = true;
     for (i = 0; i &lt; 3 * global.sector; i++) {
         instance_create(1 + random(room_width - 2), 1 + random(room_height - 2), obj_asteroid);
     }

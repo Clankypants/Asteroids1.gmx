@@ -34,6 +34,8 @@ global.debug = false;
 global.super = false;
 global.reset_asteroids = 0;
 global.shield_power = 100;
+global.warp = true;
+global.warptime = 240;
 </string>
           </argument>
         </arguments>
@@ -56,12 +58,19 @@ global.shield_power = 100;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// increase shot power
+            <string>///game updates
+
+// increase shot power
 if (global.shotpower &lt; 100) {
     if (global.super) {
         global.shotpower = 99;
     } 
     global.shotpower++;
+}
+
+// re-fill shield
+if (floor(global.shield_power) &lt; 100) {
+    global.shield_power += .02;
 }
 </string>
           </argument>

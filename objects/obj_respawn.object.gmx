@@ -108,6 +108,9 @@ draw_text_colour(room_width/2, room_height/2 + 50, "PRESS &lt;SPACE&gt; TO RESPA
             <string>///RESPAWN
 if (menu_fade &gt;= 1) {
     instance_create(room_width/2,room_height/2,obj_player);
+    global.shield_power = 100;
+    global.warp = true;
+    global.warptime = 240;
     // destroy text
     instance_destroy();
 }

@@ -34,8 +34,7 @@ image_angle = 90;
 image_speed = 1/6;
 
 // set temporary warp protection
-warp = true;
-warptime = 240;
+global.warp = true;
 
 // set thrust value
 thrust = false;
@@ -44,6 +43,44 @@ thrust = false;
 shield_angle = -1;
 shield_timer = 30;
 shield_glow = 0;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="1" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///destroy
+var randomangle = random(360);
+var o;
+for (i = 0; i &lt; 6; i++) {
+    o = instance_create(x,y,obj_deadplayer);
+    o.angle = (i * 60) + randomangle;
+    o.speed = random(3);
+    o.direction = o.angle;
+    o.image_angle = o.angle;
+}
+if (global.life &gt; 0) {
+    global.life -= 1;
+    instance_create(room_width/2,room_height/2,obj_respawn);
+} else {
+    instance_create(0,0,obj_gameover);
+}
 </string>
           </argument>
         </arguments>
@@ -69,10 +106,10 @@ shield_glow = 0;
             <string>///player updates
 
 // countdown warp time
-if (warp &amp;&amp; !global.debug) {
-    warptime -= 1;
-    if (warptime &lt;= 0) {
-        warp = false;
+if (global.warp &amp;&amp; !global.debug) {
+    global.warptime -= 1;
+    if (global.warptime &lt;= 0) {
+        global.warp = false;
     }
 }
 
@@ -86,10 +123,6 @@ if (shield_glow &gt; 0) {
     shield_glow--;
 }
 
-// re-fill shield
-if (global.shield_power &lt; 100) {
-    global.shield_power += .02;
-}
 </string>
           </argument>
         </arguments>
@@ -114,41 +147,20 @@ if (global.shield_power &lt; 100) {
             <kind>1</kind>
             <string>///collision effects
 
-// shield flash
-shield_angle = point_direction(x, y, other.x, other.y);
-shield_glow = shield_timer;
-if (object_get_name(other.object_index) == "obj_asteroid") {
-    global.shield_power = global.shield_power - 40;
-} else {
-    global.shield_power = global.shield_power - 10;
-}
-
 // impact with asteroid
-if (!spr_player.warp) {
+if (!global.warp) {
+    // shield flash
+    shield_angle = point_direction(x, y, other.x, other.y);
+    shield_glow = shield_timer;
+    if (object_get_name(other.object_index) == "obj_asteroid") {
+        global.shield_power -= 40;
+        if (global.shield_power &lt;= 0) global.shield_power = 0;
+    } else {
+        global.shield_power -= 10;
+        if (global.shield_power &lt;= 0) global.shield_power = 0;
+    }
     // generate debris if shields are down
     if (global.shield_power &lt;= 0) {
-        var randomangle = random(360);
-        var o;
-        for (i = 0; i &lt; 6; i++) {
-            o = instance_create(x,y,obj_deadplayer);
-            o.angle = (i * 60) + randomangle;
-            o.speed = random(3);
-            o.direction = o.angle;
-            o.image_angle = o.angle;
-        }
-        /*
-        with (obj_deadplayer) {
-            direction = angle;
-            image_angle = angle;
-        }
-        */
-        if (global.life &gt; 0) {
-            global.life -= 1;
-            instance_create(room_width/2,room_height/2,obj_respawn);
-        } else {
-            instance_create(0,0,obj_gameover);
-        }
-        
         instance_destroy();
     } else {
         // get player's current speed
@@ -324,7 +336,7 @@ image_angle = image_angle + 2;
             <string>///draw sprite and animations
 
 // draw warp animation
-if (warp) {
+if (global.warp) {
     draw_sprite(spr_warp,image_index,x,y);
 }
 
