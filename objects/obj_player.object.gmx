@@ -105,14 +105,6 @@ if (global.life &gt; 0) {
             <kind>1</kind>
             <string>///player updates
 
-// countdown warp time
-if (global.warp &amp;&amp; !global.debug) {
-    global.warptime -= 1;
-    if (global.warptime &lt;= 0) {
-        global.warp = false;
-    }
-}
-
 // if ship passes beyond wrap, rotate ship to point toward center
 if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width + 100) {
     direction = point_direction(x, y, room_width / 2, room_width / 2);

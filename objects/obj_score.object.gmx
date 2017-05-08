@@ -35,7 +35,7 @@ global.super = false;
 global.reset_asteroids = 0;
 global.shield_power = 100;
 global.warp = true;
-global.warptime = 240;
+warptime = 0;
 </string>
           </argument>
         </arguments>
@@ -60,6 +60,15 @@ global.warptime = 240;
             <kind>1</kind>
             <string>///game updates
 
+///generate asteroids
+if (!instance_exists(obj_asteroid)) {
+    global.sector++;
+    global.warp = true;
+    for (i = 0; i &lt; 3 * global.sector; i++) {
+        instance_create(1 + random(room_width - 2), 1 + random(room_height - 2), obj_asteroid);
+    }
+}
+
 // increase shot power
 if (global.shotpower &lt; 100) {
     if (global.super) {
@@ -71,6 +80,17 @@ if (global.shotpower &lt; 100) {
 // re-fill shield
 if (floor(global.shield_power) &lt; 100) {
     global.shield_power += .02;
+}
+
+// countdown warp time
+if (!global.warp &amp;&amp; warptime &lt;= 0) {
+    warptime = 240;
+}
+if (global.warp &amp;&amp; !global.debug) {
+    warptime -= 1;
+    if (warptime &lt;= 0) {
+        global.warp = false;
+    }
 }
 </string>
           </argument>
