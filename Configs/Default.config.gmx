@@ -227,14 +227,14 @@
     <option_hasloadimage>false</option_hasloadimage>
     <option_helpkey>true</option_helpkey>
     <option_html5_CreationEventOrder>true</option_html5_CreationEventOrder>
-    <option_html5_WebGL>0</option_html5_WebGL>
+    <option_html5_WebGL>2</option_html5_WebGL>
     <option_html5_advertising_enable>0</option_html5_advertising_enable>
     <option_html5_advertising_key></option_html5_advertising_key>
     <option_html5_advertising_type>Supersonic Ads</option_html5_advertising_type>
     <option_html5_allow_fullscreen>True</option_html5_allow_fullscreen>
     <option_html5_alwaysreload>False</option_html5_alwaysreload>
     <option_html5_browser_title>Created with GameMaker: Studio</option_html5_browser_title>
-    <option_html5_centergame>True</option_html5_centergame>
+    <option_html5_centergame>False</option_html5_centergame>
     <option_html5_facebook_app_display_name></option_html5_facebook_app_display_name>
     <option_html5_facebook_appid></option_html5_facebook_appid>
     <option_html5_facebook_enable>0</option_html5_facebook_enable>
@@ -246,7 +246,7 @@
     <option_html5_google_tracking_id></option_html5_google_tracking_id>
     <option_html5_icon>Configs\Default\html5\fav.ico</option_html5_icon>
     <option_html5_index>-1</option_html5_index>
-    <option_html5_interpolate>-1</option_html5_interpolate>
+    <option_html5_interpolate>0</option_html5_interpolate>
     <option_html5_jsprepend></option_html5_jsprepend>
     <option_html5_loadingbar>-1</option_html5_loadingbar>
     <option_html5_localrunalert>True</option_html5_localrunalert>
@@ -262,7 +262,7 @@
     <option_icon>nil</option_icon>
     <option_in_app_purchase_sandbox_mode>0</option_in_app_purchase_sandbox_mode>
     <option_information></option_information>
-    <option_interpolate>True</option_interpolate>
+    <option_interpolate>False</option_interpolate>
     <option_ios_adcolony_enable_V4VC>false</option_ios_adcolony_enable_V4VC>
     <option_ios_advertising_enable>false</option_ios_advertising_enable>
     <option_ios_advertising_key></option_ios_advertising_key>
@@ -422,7 +422,7 @@
     <option_showprogress>1</option_showprogress>
     <option_sizeable>False</option_sizeable>
     <option_stayontop>false</option_stayontop>
-    <option_sync_vertex>0</option_sync_vertex>
+    <option_sync_vertex>1</option_sync_vertex>
     <option_textureGroup0_border>2</option_textureGroup0_border>
     <option_textureGroup0_nocropping>0</option_textureGroup0_nocropping>
     <option_textureGroup0_parent>&lt;none&gt;</option_textureGroup0_parent>

@@ -30,9 +30,16 @@ image_angle = irandom(360);
 rotationspeed = -1 + random(2);
 image_speed = 0;
 image_index = irandom(2);
-direction = irandom(360);
-speed = 0.5 + random(2);
+basedirection = irandom(360);
+direction = basedirection;
+basespeed = 0.5 + random(2);
+speed = basespeed;
 hp = 10 + irandom(20);
+
+// create radar blip
+blip = instance_create(room_width / 2, room_height / 2, obj_radarblip);
+blip.asteroid = id;
+
 bug = false;
 </string>
           </argument>
@@ -66,6 +73,7 @@ explosion_instance.rotationspeed = rotationspeed;
 
 // score points
 global.points = global.points + 75;
+
 </string>
           </argument>
         </arguments>

@@ -13,7 +13,7 @@
     <sprite>sprites\spr_explosion_l</sprite>
     <sprite>sprites\spr_asteroid_s</sprite>
     <sprite>sprites\spr_explosion_s</sprite>
-    <sprite>sprites\spr_debris</sprite>
+    <sprite>sprites\spr_deadplayer</sprite>
     <sprite>sprites\spr_thrust</sprite>
     <sprite>sprites\spr_warp</sprite>
     <sprite>sprites\spr_turnleft</sprite>
@@ -21,9 +21,14 @@
     <sprite>sprites\spr_bulletburst</sprite>
     <sprite>sprites\spr_bug</sprite>
     <sprite>sprites\spr_shield</sprite>
+    <sprite>sprites\spr_backgrounddebris</sprite>
+    <sprite>sprites\spr_radarblip</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\wrap_object.gml</script>
+  </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_small</font>
     <font>fonts\fnt_big</font>
@@ -41,8 +46,12 @@
     <object>objects\obj_explosion_s</object>
     <object>objects\obj_start</object>
     <object>objects\obj_respawn</object>
+    <object>objects\obj_backgrounddebris</object>
+    <object>objects\obj_display_mgr</object>
+    <object>objects\obj_radarblip</object>
   </objects>
   <rooms name="rooms">
+    <room>rooms\_display_init</room>
     <room>rooms\rm_game</room>
   </rooms>
   <help>

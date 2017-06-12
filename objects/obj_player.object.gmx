@@ -66,6 +66,10 @@ shield_glow = 0;
           <argument>
             <kind>1</kind>
             <string>///destroy
+// get the global x and y speeds
+global_x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
+global_y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
+
 var randomangle = random(360);
 var o;
 for (i = 0; i &lt; 6; i++) {
@@ -73,6 +77,17 @@ for (i = 0; i &lt; 6; i++) {
     o.angle = (i * 60) + randomangle;
     o.speed = random(3);
     o.direction = o.angle;
+    
+    // get the x and y speeds
+    o_x_speed = lengthdir_x(o.speed, o.direction);
+    o_y_speed = lengthdir_y(o.speed, o.direction);
+    // calculate new x and y speeds for dead player debris
+    o_x_speed += global_x_speed;
+    o_y_speed += global_y_speed;
+    // apply new direction and speed to dead player debris
+    o.speed = point_distance(0, 0, o_x_speed, o_y_speed);
+    o.direction = point_direction(0, 0, o_x_speed, o_y_speed);
+    
     o.image_angle = o.angle;
 }
 if (global.life &gt; 0) {
@@ -81,6 +96,7 @@ if (global.life &gt; 0) {
 } else {
     instance_create(0,0,obj_gameover);
 }
+global.globalspeed = 0;
 </string>
           </argument>
         </arguments>
@@ -156,20 +172,20 @@ if (!global.warp) {
         instance_destroy();
     } else {
         // get player's current speed
-        x_speed = lengthdir_x(speed, direction);
-        y_speed = lengthdir_y(speed, direction);
+        x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
+        y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
         // get asteroid's speed and direction
-        asteroid_direction = other.direction;
-        asteroid_x_speed = lengthdir_x(100, asteroid_direction);
-        asteroid_y_speed = lengthdir_y(100, asteroid_direction);
+        asteroid_x_speed = lengthdir_x(100, other.basedirection);
+        asteroid_y_speed = lengthdir_y(100, other.basedirection);
         // calculate the new x and y speeds for the player
         x_speed += asteroid_x_speed;
         y_speed += asteroid_y_speed;
         // apply the new direction and speed for the player
-        direction = point_direction(x, y, x+x_speed, y+y_speed);
-        speed = point_distance(x, y, x+x_speed, y+y_speed);
-        if (speed &gt; 3) {
-            speed = 3;
+        global.globaldirection = point_direction(x, y, x + x_speed, y + y_speed);
+        global.globalspeed = point_distance(x, y, x + x_speed, y + y_speed);
+        // limit globalspeed
+        if (global.globalspeed &gt; 3) {
+            global.globalspeed = 3;
         }
     }
     // destroy asteroid
@@ -198,8 +214,8 @@ if (!global.warp) {
           <argument>
             <kind>1</kind>
             <string>///Brake
-if (speed &gt; 0) {
-    speed -= 0.05;
+if (global.globalspeed &gt; 0) {
+    global.globalspeed -= 0.05;
 }
 </string>
           </argument>
@@ -250,9 +266,23 @@ image_angle = image_angle - 2;
             <string>///Thrust
 
 // add thrust power up to max
-motion_add(image_angle,0.2);
-if (speed &gt; 5) {
-    speed = 5;
+//motion_add(image_angle,0.2);
+// get the x and y speed of the current global
+x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
+y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
+// thrust x and y speeds
+thrust_x_speed = 0.2 * cos(pi / 180 * image_angle);
+thrust_y_speed = 0.2 * sin(pi / 180 * image_angle);
+// calculate the new x and y speeds for global
+x_speed += thrust_x_speed;
+y_speed -= thrust_y_speed;
+// apply new direction and speed to global
+global.globaldirection = point_direction(0, 0, x_speed, y_speed);
+global.globalspeed = point_distance(0, 0, x_speed, y_speed);
+//global.globaldirection = image_angle;
+//global.globalspeed += 0.2;
+if (global.globalspeed &gt; 5) {
+    global.globalspeed = 5;
 }
 
 // draw thrust animation
@@ -282,28 +312,6 @@ draw_sprite_ext(spr_thrust,image_index,x,y,1,1,image_angle,c_white,1);
             <string>///Turn Left
 image_angle = image_angle + 2;
 </string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>112</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_wrap</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>4</kind>
-            <string>2</string>
           </argument>
         </arguments>
       </action>

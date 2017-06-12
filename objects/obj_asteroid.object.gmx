@@ -35,9 +35,16 @@ image_angle = irandom(360);
 rotationspeed = -1 + random(2);
 image_speed = 0;
 image_index = irandom(2);
-direction = irandom(360);
-speed = 0.5 + random(2);
+basedirection = irandom(360);
+direction = basedirection;
+basespeed = 0.5 + random(2);
+speed = basespeed;
 hp = 80 + irandom(20);
+
+// create radar blip
+blip = instance_create(room_width / 2, room_height / 2, obj_radarblip);
+blip.asteroid = id;
+
 bug = false;
 </string>
           </argument>
@@ -76,6 +83,7 @@ for (i = 0; i &lt;= random(3); i++) {
 
 // get points!
 global.points = global.points + 50;
+
 </string>
           </argument>
         </arguments>
@@ -101,13 +109,81 @@ global.points = global.points + 50;
             <string>///rotate sprite
 image_angle += rotationspeed;
 
-// destroy asteroid if it travels beyond the edge without warping
-if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width + 100) {
-    direction = point_direction(x, y, room_width / 2, room_width / 2);
-    bug = true;
-    global.reset_asteroids++;
-}
 </string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///set relative vector
+// get the x and y speeds of the asteroid
+x_speed = lengthdir_x(basespeed, basedirection);
+y_speed = lengthdir_y(basespeed, basedirection);
+//burst_direction = point_direction(other.x, other.y, x, y);
+global_x_speed = lengthdir_x(global.globalspeed, global.globaldirection + 180);
+global_y_speed = lengthdir_y(global.globalspeed, global.globaldirection + 180);
+// calculate the new x and y speeds for the asteroid
+x_speed += global_x_speed;
+y_speed += global_y_speed;
+// apply the new direction and speed for the asteroid
+direction = point_direction(x, y, x + x_speed, y + y_speed);
+speed = point_distance(x, y, x + x_speed, y + y_speed);
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>601</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_execute_script</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>9</kind>
+            <script>wrap_object</script>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
           </argument>
         </arguments>
       </action>
@@ -132,50 +208,23 @@ if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width +
             <string>///impact physics
 
 // get the x and y speeds of the asteroid
-x_speed = lengthdir_x(speed, direction);
-y_speed = lengthdir_y(speed, direction);
-
-// get the speeds and direction of the burst relative to the asteroid
-burst_power = .2;
-burst_direction = other.image_angle;
+x_speed = lengthdir_x(basespeed, basedirection);
+y_speed = lengthdir_y(basespeed, basedirection);
 //burst_direction = point_direction(other.x, other.y, x, y);
-burst_x_speed = lengthdir_x(burst_power, burst_direction);
-burst_y_speed = lengthdir_y(burst_power, burst_direction);
-
+burst_x_speed = lengthdir_x(.2, other.image_angle);
+burst_y_speed = lengthdir_y(.2, other.image_angle);
 // calculate the new x and y speeds for the asteroid
 x_speed += burst_x_speed;
 y_speed += burst_y_speed;
-
 // apply the new direction and speed for the asteroid
-direction = point_direction(x, y, x+x_speed, y+y_speed);
-speed = point_distance(x, y, x+x_speed, y+y_speed);
-if (speed &gt; 3) {
-    speed = 3;
+basedirection = point_direction(x, y, x + x_speed, y + y_speed);
+basespeed = point_distance(x, y, x + x_speed, y + y_speed);
+// limit basespeed
+if (basespeed &gt; 3) {
+    basespeed = 3;
 }
 
 </string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="7" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>112</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_wrap</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>4</kind>
-            <string>2</string>
           </argument>
         </arguments>
       </action>

@@ -29,6 +29,7 @@
 start_time = current_time;
 menu_timeout = 100;
 menu_fade = 0;
+depth = -100
 </string>
           </argument>
         </arguments>

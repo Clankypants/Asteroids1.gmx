@@ -36,6 +36,10 @@ global.reset_asteroids = 0;
 global.shield_power = 100;
 global.warp = true;
 warptime = 0;
+global.globaldirection = 0;
+global.globalspeed = 0;
+global.worldpadding = 500;
+depth = -100;
 </string>
           </argument>
         </arguments>
@@ -60,12 +64,23 @@ warptime = 0;
             <kind>1</kind>
             <string>///game updates
 
-///generate asteroids
+// generate asteroids
 if (!instance_exists(obj_asteroid)) {
     global.sector++;
     global.warp = true;
     for (i = 0; i &lt; 3 * global.sector; i++) {
-        instance_create(1 + random(room_width - 2), 1 + random(room_height - 2), obj_asteroid);
+        instance_create(random(room_width + (global.worldpadding * 2)) - global.worldpadding, random(room_height + (global.worldpadding * 2)) - global.worldpadding, obj_asteroid);
+    }
+    with(obj_backgrounddebris) {
+        instance_destroy();
+    }
+    global.globalspeed = 0;
+}
+
+// generate background debris
+if (!instance_exists(obj_backgrounddebris)) {
+    for (i = 0; i &lt; 400; i++) {
+        instance_create(room_width / 2, room_height / 2, obj_backgrounddebris);
     }
 }
 
