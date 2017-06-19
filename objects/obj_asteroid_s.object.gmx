@@ -66,7 +66,7 @@ bug = false;
             <string>/// prevent spawning of additional asteroids
 
 // play explosion animation
-explosion_instance = instance_create(x,y,obj_explosion_s);
+explosion_instance = instance_create(x, y, obj_explosion_s);
 explosion_instance.direction = direction;
 explosion_instance.speed = speed;
 explosion_instance.rotationspeed = rotationspeed;

@@ -32,7 +32,7 @@ depth = 100 + random(100);
 image_angle = irandom(360);
 rotationspeed = -1 + random(2);
 image_speed = 0;
-image_index = irandom(15);
+image_index = irandom(7);
 //basedirection = irandom(360);
 //direction = basedirection;
 //basespeed = 0.5 + random(2);
@@ -90,8 +90,8 @@ y_speed = lengthdir_y(0, 0);
 global_x_speed = lengthdir_x(global.globalspeed, global.globaldirection + 180);
 global_y_speed = lengthdir_y(global.globalspeed, global.globaldirection + 180);
 // calculate the new x and y speeds for the debris
-x_speed += global_x_speed / (depth / 50);
-y_speed += global_y_speed / (depth / 50);
+x_speed += global_x_speed / (depth / 100);
+y_speed += global_y_speed / (depth / 100);
 // apply the new direction and speed for the debris
 direction = point_direction(x, y, x + x_speed, y + y_speed);
 speed = point_distance(x, y, x + x_speed, y + y_speed);
@@ -159,7 +159,7 @@ speed = point_distance(x, y, x + x_speed, y + y_speed);
           <argument>
             <kind>1</kind>
             <string>///draw background debris
-draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, c_white, 1);
+draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, -1, 1);
 </string>
           </argument>
         </arguments>

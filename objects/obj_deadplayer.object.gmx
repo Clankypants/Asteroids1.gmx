@@ -85,7 +85,7 @@ if (debris_fade &gt; 0) {
           <argument>
             <kind>1</kind>
             <string>///draw debris
-draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, c_white, debris_fade / debris_timeout);
+draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, -1, debris_fade / debris_timeout);
 </string>
           </argument>
         </arguments>

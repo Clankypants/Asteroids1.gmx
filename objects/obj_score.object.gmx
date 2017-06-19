@@ -40,6 +40,7 @@ global.globaldirection = 0;
 global.globalspeed = 0;
 global.worldpadding = 500;
 depth = -100;
+
 </string>
           </argument>
         </arguments>
@@ -64,26 +65,6 @@ depth = -100;
             <kind>1</kind>
             <string>///game updates
 
-// generate asteroids
-if (!instance_exists(obj_asteroid)) {
-    global.sector++;
-    global.warp = true;
-    for (i = 0; i &lt; 3 * global.sector; i++) {
-        instance_create(random(room_width + (global.worldpadding * 2)) - global.worldpadding, random(room_height + (global.worldpadding * 2)) - global.worldpadding, obj_asteroid);
-    }
-    with(obj_backgrounddebris) {
-        instance_destroy();
-    }
-    global.globalspeed = 0;
-}
-
-// generate background debris
-if (!instance_exists(obj_backgrounddebris)) {
-    for (i = 0; i &lt; 400; i++) {
-        instance_create(room_width / 2, room_height / 2, obj_backgrounddebris);
-    }
-}
-
 // increase shot power
 if (global.shotpower &lt; 100) {
     if (global.super) {
@@ -107,12 +88,17 @@ if (global.warp &amp;&amp; !global.debug) {
         global.warp = false;
     }
 }
+
+// if there are no asteroids or screen
+if (!instance_exists(obj_screen) &amp;&amp; !instance_exists(obj_asteroid)) {
+    instance_create(room_width / 2, room_height / 2, obj_screen);
+}
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="8" enumb="0">
+    <event eventtype="8" enumb="64">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -137,8 +123,8 @@ draw_set_font(fnt_small);
 draw_text(64, 32, "SCORE: " + string(global.points));
 draw_text(64, 64, "SECTOR: " + string(global.sector));
 draw_text(64, 96, "LIVES: " + string(global.life));
-draw_text(64, 128, "POWER: " + string(global.shotpower));
 if (instance_exists(obj_player)) {
+    draw_text(64, 128, "POWER: " + string(global.shotpower));
     draw_text(64, 160, "SHIELDS: " + string(floor(global.shield_power)));
 }
 if (global.debug) {

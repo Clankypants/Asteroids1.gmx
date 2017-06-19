@@ -31,7 +31,7 @@
 image_angle = 90;
 
 // set animation speed for associated animations
-image_speed = 1/6;
+image_speed = 1 / 6;
 
 // set temporary warp protection
 global.warp = true;
@@ -73,7 +73,7 @@ global_y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
 var randomangle = random(360);
 var o;
 for (i = 0; i &lt; 6; i++) {
-    o = instance_create(x,y,obj_deadplayer);
+    o = instance_create(x, y, obj_deadplayer);
     o.angle = (i * 60) + randomangle;
     o.speed = random(3);
     o.direction = o.angle;
@@ -92,11 +92,9 @@ for (i = 0; i &lt; 6; i++) {
 }
 if (global.life &gt; 0) {
     global.life -= 1;
-    instance_create(room_width/2,room_height/2,obj_respawn);
-} else {
-    instance_create(0,0,obj_gameover);
 }
 global.globalspeed = 0;
+instance_create(room_width / 2, room_height / 2, obj_screen);
 </string>
           </argument>
         </arguments>
@@ -160,13 +158,8 @@ if (!global.warp) {
     // shield flash
     shield_angle = point_direction(x, y, other.x, other.y);
     shield_glow = shield_timer;
-    if (object_get_name(other.object_index) == "obj_asteroid") {
-        global.shield_power -= 40;
-        if (global.shield_power &lt;= 0) global.shield_power = 0;
-    } else {
-        global.shield_power -= 10;
-        if (global.shield_power &lt;= 0) global.shield_power = 0;
-    }
+    global.shield_power -= other.hp / 2;
+    if (global.shield_power &lt;= 0) global.shield_power = 0;
     // generate debris if shields are down
     if (global.shield_power &lt;= 0) {
         instance_destroy();
@@ -342,24 +335,24 @@ if (global.warp) {
 
 // draw thruster animations
 if (keyboard_check(vk_up)) {
-    draw_sprite_ext(spr_thrust,image_index,x,y,1,1,image_angle,c_white,1);
+    draw_sprite_ext(spr_thrust,image_index,x,y,1,1,image_angle,-1,1);
 }
 if (keyboard_check(vk_left)) {
-    draw_sprite_ext(spr_turnleft,image_index,x,y,1,1,image_angle,c_white,1);
+    draw_sprite_ext(spr_turnleft,image_index,x,y,1,1,image_angle,-1,1);
 }
 if (keyboard_check(vk_right)) {
-    draw_sprite_ext(spr_turnright,image_index,x,y,1,1,image_angle,c_white,1);
+    draw_sprite_ext(spr_turnright,image_index,x,y,1,1,image_angle,-1,1);
 }
 if (keyboard_check(vk_down)) {
-    draw_sprite_ext(spr_brake,image_index,x,y,1,1,image_angle,c_white,1);
+    draw_sprite_ext(spr_brake,image_index,x,y,1,1,image_angle,-1,1);
 }
 
 // draw ship
-draw_sprite_ext(spr_player,1,x,y,1,1,image_angle,c_white,1);
+draw_sprite_ext(spr_player,1,x,y,1,1,image_angle,-1,1);
 
 // draw shield
 if (shield_glow &gt; 0) {
-    draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,c_white,shield_glow / shield_timer);
+    draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,-1,shield_glow / shield_timer);
 }
 </string>
           </argument>
@@ -447,7 +440,7 @@ if (global.debug) {
             <string>///fire
 
 // create bullet
-bullet = instance_create(x,y,obj_bullet);
+bullet = instance_create(x, y, obj_bullet);
 
 // set speed and direction
 bullet.speed = 15;

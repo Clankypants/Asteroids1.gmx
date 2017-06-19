@@ -119,7 +119,7 @@ if (hp &lt;= 0) instance_destroy();
             <kind>1</kind>
             <string>///burst
 // create bulletburst object where bullet dies
-var inst = instance_create(x,y,obj_bulletburst);
+var inst = instance_create(x, y, obj_bulletburst);
 inst.image_angle = image_angle;
 inst.shotpower = shotpower;
 </string>
