@@ -28,7 +28,7 @@
             <string>///Display Properties
 ideal_width = 0;
 ideal_height = 450;
-global.zoom = 1;
+zoom = 1;
 max_zoom = 1;
 
 aspect_ratio = display_get_width() / display_get_height();
@@ -103,9 +103,9 @@ window_center();
 
 // zoom window
 if (keyboard_check_pressed(ord("Z"))) {
-    global.zoom++;
-    if (global.zoom &gt; max_zoom) global.zoom = 1;
-    window_set_size(ideal_width * global.zoom, ideal_height * global.zoom);
+    zoom++;
+    if (zoom &gt; max_zoom) zoom = 1;
+    window_set_size(ideal_width * zoom, ideal_height * zoom);
     alarm[0] = 1;
 }
 // toggle Fullscreen
