@@ -26,10 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>///load screen
-start_time = current_time;
 menu_timeout = 100.0;
-menu_fade = 0.0;
-image_alpha = menu_fade;
+text_alpha = 0.0;
 depth = -100;
 </string>
           </argument>
@@ -54,12 +52,11 @@ depth = -100;
           <argument>
             <kind>1</kind>
             <string>///update fade
-if (menu_fade &lt; 1.0) {
-    menu_fade += 1.0 / menu_timeout;
+if (text_alpha &lt; 1.0) {
+    text_alpha += 1.0 / menu_timeout;
 } else {
-    menu_fade = 1.0;
+    text_alpha = 1.0;
 }
-image_alpha = menu_fade;
 </string>
           </argument>
         </arguments>
@@ -83,22 +80,35 @@ image_alpha = menu_fade;
           <argument>
             <kind>1</kind>
             <string>///SCREEN TEXT
+draw_set_alpha(text_alpha);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_color(c_white);
 draw_set_font(fnt_big);
 if (global.sector == 0) { // START
-    draw_text(window_get_width() / 2, window_get_height() / 2, "BLASTEROIDS");
-    draw_set_font(fnt_small);
-    draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO START!");
-} else if (global.life &gt; 0) { // NEXT SECTOR
-    draw_text(window_get_width() / 2, window_get_height() / 2, "SECTOR CLEAR");
-    draw_set_font(fnt_small);
-    draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO JUMP TO NEXT SECTOR!");
+    draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "BLASTEROIDS");
+    if (text_alpha &gt;= 1.0) {
+        draw_set_font(fnt_small);
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO START!");
+    }
+} else if (global.life &gt; 0 &amp;&amp; instance_exists(obj_asteroid)) { // RESPAWN
+    if (text_alpha &gt;= 1.0) {
+        draw_set_font(fnt_small);
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESPAWN!");
+    }
+} else if (global.life &gt; 0 &amp;&amp; !instance_exists(obj_asteroid)) { // NEXT SECTOR
+    draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "SECTOR CLEAR");
+    if (text_alpha &gt;= 1.0) {
+        draw_set_font(fnt_small);
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO JUMP TO NEXT SECTOR!");
+    }
 } else { // GAME OVER
-    draw_text(window_get_width() / 2, window_get_height() / 2, "GAME OVER");
-    draw_set_font(fnt_small);
-    draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESTART!");
+    draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "GAME OVER");
+    draw_text(window_get_width() / 2, window_get_height() / 2, "SCORE: " + string(global.points));
+    if (text_alpha &gt;= 1.0) {
+        draw_set_font(fnt_small);
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESTART!");
+    }
 }
 </string>
           </argument>
@@ -123,17 +133,23 @@ if (global.sector == 0) { // START
           <argument>
             <kind>1</kind>
             <string>///START SECTOR
-if (global.life &gt; 0) {
-    instance_create(room_width / 2, room_height / 2, obj_player);
-    // load sector
-    script_execute(load_sector);
-} else {
-    game_restart();
+if (text_alpha &gt;= 1.0) {
+    if (global.life &gt; 0) {
+        if (!instance_exists(obj_player)) {
+            instance_create(room_width / 2, room_height / 2, obj_player);
+        }
+        if (!instance_exists(obj_asteroid)) {
+            global.sector++;
+            // load sector
+            script_execute(load_sector);
+        }
+    } else {
+        room_restart();
+    }
+    
+    // destroy text
+    instance_destroy();
 }
-
-// destroy text
-instance_destroy();
-
 </string>
           </argument>
         </arguments>

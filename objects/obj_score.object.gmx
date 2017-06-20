@@ -25,74 +25,9 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set starting values
-global.points = 0;
-global.life = 2;
-global.sector = 0;
-global.shotpower = 0;
-global.debug = false;
-global.super = false;
-global.reset_asteroids = 0;
-global.shield_power = 100;
-global.warp = true;
-warptime = 0;
-global.globaldirection = 0;
-global.globalspeed = 0;
-global.worldpadding = 500;
+            <string>///set depth
 depth = -100;
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="3" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///game updates
-
-// increase shot power
-if (global.shotpower &lt; 100) {
-    if (global.super) {
-        global.shotpower = 99;
-    } 
-    global.shotpower++;
-}
-
-// re-fill shield
-if (floor(global.shield_power) &lt; 100) {
-    global.shield_power += .02;
-}
-
-// countdown warp time
-if (!global.warp &amp;&amp; warptime &lt;= 0) {
-    warptime = 240;
-}
-if (global.warp &amp;&amp; !global.debug) {
-    warptime -= 1;
-    if (warptime &lt;= 0) {
-        global.warp = false;
-    }
-}
-
-// if there are no asteroids or screen
-if (!instance_exists(obj_screen) &amp;&amp; !instance_exists(obj_asteroid)) {
-    instance_create(room_width / 2, room_height / 2, obj_screen);
-}
 </string>
           </argument>
         </arguments>
@@ -125,81 +60,12 @@ draw_text(64, 64, "SECTOR: " + string(global.sector));
 draw_text(64, 96, "LIVES: " + string(global.life));
 if (instance_exists(obj_player)) {
     draw_text(64, 128, "POWER: " + string(global.shotpower));
-    draw_text(64, 160, "SHIELDS: " + string(floor(global.shield_power)));
+    draw_text(64, 160, "SHIELDS: " + string(floor(global.shieldpower)));
 }
 if (global.debug) {
-    draw_text(64, 192, "ASTEROIDS: " + string(instance_number(obj_asteroid)) + ", " + string(instance_number(obj_asteroid_s)) + ", " + string(global.reset_asteroids));
+    draw_text(64, 192, "ASTEROIDS: " + string(instance_number(obj_asteroid)) + ", " + string(instance_number(obj_asteroid_s)));
 }
 
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="82">
-      <action>
-        <libid>1</libid>
-        <id>331</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>0</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_restart_game</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-      </action>
-    </event>
-    <event eventtype="9" enumb="68">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///debug mode
-if (global.debug == false) {
-    global.debug = true;
-} else {
-    global.debug = false;
-}
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="9" enumb="48">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>if (global.debug) {
-    global.sector += 10;
-}
 </string>
           </argument>
         </arguments>

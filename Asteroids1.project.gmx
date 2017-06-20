@@ -29,6 +29,7 @@
   <scripts name="scripts">
     <script>scripts\wrap_object.gml</script>
     <script>scripts\load_sector.gml</script>
+    <script>scripts\start_game.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_small</font>
@@ -48,6 +49,7 @@
     <object>objects\obj_backgrounddebris</object>
     <object>objects\obj_display_mgr</object>
     <object>objects\obj_radarblip</object>
+    <object>objects\obj_globals</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\_display_init</room>

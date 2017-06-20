@@ -51,9 +51,7 @@ asteroid = undefined;
           <argument>
             <kind>1</kind>
             <string>/// point at asteroid
-//asteroid = instance_find(obj_asteroid, asteroid_id);
 if instance_exists(asteroid) {
-    // show_debug_message("(" + string(x) + "," + string(y) + "):(" + string(asteroid.x) + "," + string(asteroid.y) + ")");
     image_angle = point_direction(x, y, asteroid.x, asteroid.y);
 } else {
     instance_destroy();

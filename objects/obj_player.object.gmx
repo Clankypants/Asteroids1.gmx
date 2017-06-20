@@ -36,6 +36,9 @@ image_speed = 1 / 6;
 // set temporary warp protection
 global.warp = true;
 
+// set shield power
+global.shieldpower = 100;
+
 // set thrust value
 thrust = false;
 
@@ -158,10 +161,10 @@ if (!global.warp) {
     // shield flash
     shield_angle = point_direction(x, y, other.x, other.y);
     shield_glow = shield_timer;
-    global.shield_power -= other.hp / 2;
-    if (global.shield_power &lt;= 0) global.shield_power = 0;
+    global.shieldpower -= other.hp / 2;
+    if (global.shieldpower &lt;= 0) global.shieldpower = 0;
     // generate debris if shields are down
-    if (global.shield_power &lt;= 0) {
+    if (global.shieldpower &lt;= 0) {
         instance_destroy();
     } else {
         // get player's current speed
@@ -378,10 +381,10 @@ if (shield_glow &gt; 0) {
             <kind>1</kind>
             <string>///shields
 if (global.debug) {
-    if (warp) {
-        warp = false;
+    if (global.warp) {
+        global.warp = false;
     } else {
-        warp = true;
+        global.warp = true;
     }
 }
 
