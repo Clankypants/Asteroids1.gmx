@@ -447,7 +447,9 @@ bullet = instance_create(x, y, obj_bullet);
 
 // set speed and direction
 bullet.speed = 15;
+bullet.basespeed = bullet.speed;
 bullet.direction = image_angle;
+bullet.basedirection = bullet.direction;
 bullet.image_angle = image_angle;
 
 // reset shotpower

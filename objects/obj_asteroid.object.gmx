@@ -130,6 +130,7 @@ image_angle += rotationspeed;
           <argument>
             <kind>1</kind>
             <string>///set relative vector
+/*
 // get the x and y speeds of the asteroid
 x_speed = lengthdir_x(basespeed, basedirection);
 y_speed = lengthdir_y(basespeed, basedirection);
@@ -142,6 +143,10 @@ y_speed += global_y_speed;
 // apply the new direction and speed for the asteroid
 direction = point_direction(x, y, x + x_speed, y + y_speed);
 speed = point_distance(x, y, x + x_speed, y + y_speed);
+*/
+new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, global.globaldirection + 180, global.globalspeed);
+direction = new_direction_speed[0];
+speed = new_direction_speed[1];
 
 </string>
           </argument>
@@ -206,7 +211,7 @@ speed = point_distance(x, y, x + x_speed, y + y_speed);
           <argument>
             <kind>1</kind>
             <string>///impact physics
-
+/*
 // get the x and y speeds of the asteroid
 x_speed = lengthdir_x(basespeed, basedirection);
 y_speed = lengthdir_y(basespeed, basedirection);
@@ -219,6 +224,12 @@ y_speed += burst_y_speed;
 // apply the new direction and speed for the asteroid
 basedirection = point_direction(x, y, x + x_speed, y + y_speed);
 basespeed = point_distance(x, y, x + x_speed, y + y_speed);
+*/
+// set new speed and direction after impact
+new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, other.image_angle, .2);
+basedirection = new_direction_speed[0];
+basespeed = new_direction_speed[1];
+
 // limit basespeed
 if (basespeed &gt; 3) {
     basespeed = 3;

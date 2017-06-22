@@ -7,49 +7,50 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\spr_player</sprite>
-    <sprite>sprites\spr_brake</sprite>
-    <sprite>sprites\spr_bullet</sprite>
-    <sprite>sprites\spr_asteroid</sprite>
-    <sprite>sprites\spr_explosion_l</sprite>
-    <sprite>sprites\spr_asteroid_s</sprite>
-    <sprite>sprites\spr_explosion_s</sprite>
-    <sprite>sprites\spr_deadplayer</sprite>
     <sprite>sprites\spr_thrust</sprite>
-    <sprite>sprites\spr_warp</sprite>
+    <sprite>sprites\spr_brake</sprite>
     <sprite>sprites\spr_turnleft</sprite>
     <sprite>sprites\spr_turnright</sprite>
+    <sprite>sprites\spr_bullet</sprite>
     <sprite>sprites\spr_bulletburst</sprite>
-    <sprite>sprites\spr_bug</sprite>
+    <sprite>sprites\spr_deadplayer</sprite>
+    <sprite>sprites\spr_warp</sprite>
     <sprite>sprites\spr_shield</sprite>
-    <sprite>sprites\spr_backgrounddebris</sprite>
     <sprite>sprites\spr_radarblip</sprite>
+    <sprite>sprites\spr_asteroid</sprite>
+    <sprite>sprites\spr_asteroid_s</sprite>
+    <sprite>sprites\spr_explosion_l</sprite>
+    <sprite>sprites\spr_explosion_s</sprite>
+    <sprite>sprites\spr_backgrounddebris</sprite>
+    <sprite>sprites\spr_bug</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\wrap_object.gml</script>
-    <script>scripts\load_sector.gml</script>
     <script>scripts\start_game.gml</script>
+    <script>scripts\load_sector.gml</script>
+    <script>scripts\wrap_object.gml</script>
+    <script>scripts\set_relative_vector.gml</script>
   </scripts>
   <fonts name="fonts">
-    <font>fonts\fnt_small</font>
     <font>fonts\fnt_big</font>
+    <font>fonts\fnt_small</font>
   </fonts>
   <objects name="objects">
+    <object>objects\obj_display_mgr</object>
+    <object>objects\obj_globals</object>
+    <object>objects\obj_score</object>
+    <object>objects\obj_screen</object>
     <object>objects\obj_player</object>
+    <object>objects\obj_deadplayer</object>
     <object>objects\obj_bullet</object>
+    <object>objects\obj_bulletburst</object>
+    <object>objects\obj_radarblip</object>
     <object>objects\obj_asteroid</object>
     <object>objects\obj_asteroid_s</object>
-    <object>objects\obj_score</object>
-    <object>objects\obj_deadplayer</object>
-    <object>objects\obj_bulletburst</object>
     <object>objects\obj_explosion_l</object>
     <object>objects\obj_explosion_s</object>
-    <object>objects\obj_screen</object>
     <object>objects\obj_backgrounddebris</object>
-    <object>objects\obj_display_mgr</object>
-    <object>objects\obj_radarblip</object>
-    <object>objects\obj_globals</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\_display_init</room>

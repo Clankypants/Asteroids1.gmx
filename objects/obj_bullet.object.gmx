@@ -30,6 +30,10 @@
 // set start time for bullet decay
 start_time = current_time;
 
+// store basespeed and basedirection
+basedirection = direction;
+basespeed = speed;
+
 // apply the current shotpower
 shotpower = global.shotpower;
 
@@ -72,6 +76,31 @@ if (shotpower &lt; 25) {
 if (x &lt; -global.worldpadding || y &lt; -global.worldpadding || x &gt; room_width + global.worldpadding || y &gt; room_height + global.worldpadding) {
     instance_destroy();
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///set relative vector
+new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, global.globaldirection + 180, global.globalspeed);
+direction = new_direction_speed[0];
+speed = new_direction_speed[1];
+
 </string>
           </argument>
         </arguments>
@@ -119,9 +148,9 @@ if (hp &lt;= 0) instance_destroy();
             <kind>1</kind>
             <string>///burst
 // create bulletburst object where bullet dies
-var inst = instance_create(x, y, obj_bulletburst);
-inst.image_angle = image_angle;
-inst.shotpower = shotpower;
+burst = instance_create(x, y, obj_bulletburst);
+burst.image_angle = image_angle;
+burst.shotpower = shotpower;
 </string>
           </argument>
         </arguments>

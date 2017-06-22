@@ -49,8 +49,34 @@ image_speed = 1 / 3;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_xscale += shotpower * 0.002;
+            <string>///scale by shotpower
+image_xscale += shotpower * 0.002;
 image_yscale += shotpower * 0.002;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///set relative vector
+new_direction_speed[] = set_relative_vector(x, y, 0, 0, 1, global.globaldirection + 180, global.globalspeed);
+direction = new_direction_speed[0];
+speed = new_direction_speed[1];
+
 </string>
           </argument>
         </arguments>
