@@ -83,22 +83,8 @@ image_angle += rotationspeed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set relative vector
-/*
-// get the x and y speeds of the debris
-x_speed = lengthdir_x(0, 0);
-y_speed = lengthdir_y(0, 0);
-//burst_direction = point_direction(other.x, other.y, x, y);
-global_x_speed = lengthdir_x(global.globalspeed, global.globaldirection + 180);
-global_y_speed = lengthdir_y(global.globalspeed, global.globaldirection + 180);
-// calculate the new x and y speeds for the debris
-x_speed += global_x_speed * (100 / depth);
-y_speed += global_y_speed * (100 / depth);
-// apply the new direction and speed for the debris
-direction = point_direction(x, y, x + x_speed, y + y_speed);
-speed = point_distance(x, y, x + x_speed, y + y_speed);
-*/
-new_direction_speed[] = set_relative_vector(x, y, 0, 0, parallax, global.globaldirection + 180, global.globalspeed);
+            <string>///set distance and speed
+new_direction_speed[] = set_distance_speed(x, y, 0, 0, parallax);
 direction = new_direction_speed[0];
 speed = new_direction_speed[1];
 

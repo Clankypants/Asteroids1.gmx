@@ -96,8 +96,8 @@ if (x &lt; -global.worldpadding || y &lt; -global.worldpadding || x &gt; room_wi
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set relative vector
-new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, global.globaldirection + 180, global.globalspeed);
+            <string>///set distance and speed
+new_direction_speed[] = set_distance_speed(x, y, basedirection, basespeed, 1);
 direction = new_direction_speed[0];
 speed = new_direction_speed[1];
 

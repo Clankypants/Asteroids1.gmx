@@ -72,8 +72,8 @@ image_yscale += shotpower * 0.002;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set relative vector
-new_direction_speed[] = set_relative_vector(x, y, 0, 0, 1, global.globaldirection + 180, global.globalspeed);
+            <string>///set distance and speed
+new_direction_speed[] = set_distance_speed(x, y, 0, 0, 1);
 direction = new_direction_speed[0];
 speed = new_direction_speed[1];
 

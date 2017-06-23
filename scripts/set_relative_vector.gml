@@ -1,3 +1,4 @@
+#define set_relative_vector
 ///set_relative_vector(obj_x, obj_y, obj_direction, obj_speed, parallax, alt_direction, alt_speed);
 
 // assign the arguments
@@ -27,3 +28,15 @@ new_direction_speed[1] = point_distance(x, y, x + x_speed, y + y_speed);
 
 return new_direction_speed;
 
+
+#define set_distance_speed
+///set_distance_speed(obj_x, obj_y, obj_direction, obj_speed, parallax)
+
+// assign the arguments
+obj_x = argument0;
+obj_y = argument1;
+obj_direction = argument2;
+obj_speed = argument3;
+parallax = argument4;
+
+return set_relative_vector(obj_x, obj_y, obj_direction, obj_speed, parallax, global.globaldirection + 180, global.globalspeed);

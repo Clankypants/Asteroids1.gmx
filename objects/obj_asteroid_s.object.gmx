@@ -67,8 +67,8 @@ bug = false;
 
 // play explosion animation
 explosion_instance = instance_create(x, y, obj_explosion_s);
-explosion_instance.direction = direction;
-explosion_instance.speed = speed;
+explosion_instance.basedirection = basedirection;
+explosion_instance.basespeed = basespeed;
 explosion_instance.rotationspeed = rotationspeed;
 
 // score points

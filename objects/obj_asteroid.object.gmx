@@ -72,8 +72,8 @@ bug = false;
 
 // play explosion animation
 explosion_instance = instance_create(x, y, obj_explosion_l);
-explosion_instance.direction = direction;
-explosion_instance.speed = speed;
+explosion_instance.basedirection = basedirection;
+explosion_instance.basespeed = basespeed;
 explosion_instance.rotationspeed = rotationspeed;
 
 // spawn mini asteroids
@@ -129,22 +129,8 @@ image_angle += rotationspeed;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set relative vector
-/*
-// get the x and y speeds of the asteroid
-x_speed = lengthdir_x(basespeed, basedirection);
-y_speed = lengthdir_y(basespeed, basedirection);
-//burst_direction = point_direction(other.x, other.y, x, y);
-global_x_speed = lengthdir_x(global.globalspeed, global.globaldirection + 180);
-global_y_speed = lengthdir_y(global.globalspeed, global.globaldirection + 180);
-// calculate the new x and y speeds for the asteroid
-x_speed += global_x_speed;
-y_speed += global_y_speed;
-// apply the new direction and speed for the asteroid
-direction = point_direction(x, y, x + x_speed, y + y_speed);
-speed = point_distance(x, y, x + x_speed, y + y_speed);
-*/
-new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, global.globaldirection + 180, global.globalspeed);
+            <string>///set distance and speed
+new_direction_speed[] = set_distance_speed(x, y, basedirection, basespeed, 1);
 direction = new_direction_speed[0];
 speed = new_direction_speed[1];
 
@@ -211,20 +197,7 @@ speed = new_direction_speed[1];
           <argument>
             <kind>1</kind>
             <string>///impact physics
-/*
-// get the x and y speeds of the asteroid
-x_speed = lengthdir_x(basespeed, basedirection);
-y_speed = lengthdir_y(basespeed, basedirection);
-//burst_direction = point_direction(other.x, other.y, x, y);
-burst_x_speed = lengthdir_x(.2, other.image_angle);
-burst_y_speed = lengthdir_y(.2, other.image_angle);
-// calculate the new x and y speeds for the asteroid
-x_speed += burst_x_speed;
-y_speed += burst_y_speed;
-// apply the new direction and speed for the asteroid
-basedirection = point_direction(x, y, x + x_speed, y + y_speed);
-basespeed = point_distance(x, y, x + x_speed, y + y_speed);
-*/
+
 // set new speed and direction after impact
 new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, other.image_angle, .2);
 basedirection = new_direction_speed[0];
