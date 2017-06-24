@@ -26,14 +26,14 @@
           <argument>
             <kind>1</kind>
             <string>///set initial values
-
+map = ds_map_create();
 // set basedirection and basespeed
-basedirection = 0;
-basespeed = 0;
+//ds_map_add(map, "basedirection", 0);
+//ds_map_add(map, "basespeed", 0);
 
 // set animation speed
 image_speed = 1 / 6;
-rotationspeed = 0;
+//ds_map_add(map, "rotationspeed", 0);
 </string>
           </argument>
         </arguments>
@@ -57,7 +57,7 @@ rotationspeed = 0;
           <argument>
             <kind>1</kind>
             <string>///rotate sprite
-image_angle += rotationspeed;
+image_angle += map[? "rotationspeed"];
 image_xscale += 0.01;
 image_yscale += 0.01;
 </string>
@@ -81,9 +81,13 @@ image_yscale += 0.01;
           <argument>
             <kind>1</kind>
             <string>///set distance and speed
-new_direction_speed[] = set_distance_speed(x, y, basedirection, basespeed, 1);
+/*
+new_direction_speed[] = set_distance_speed(x, y, ds_map_read(map, "basedirection"), ds_map_read(map, "basespeed"), 1);
 direction = new_direction_speed[0];
 speed = new_direction_speed[1];
+*/
+set_object_vector(self);
+
 </string>
           </argument>
         </arguments>

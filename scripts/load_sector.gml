@@ -5,9 +5,7 @@ with(obj_asteroid) {
 }
 // generate asteroids
 for (i = 0; i < 3 * global.sector; i++) {
-    instance_create(random(room_width + (global.worldpadding * 2)) - global.worldpadding, 
-    random(room_height + (global.worldpadding * 2)) - global.worldpadding, 
-    obj_asteroid);
+    instance_create(random(room_width), random(room_height), obj_asteroid);
 }
 // remove background debris
 with(obj_backgrounddebris) {

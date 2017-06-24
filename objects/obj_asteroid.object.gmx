@@ -31,15 +31,16 @@ while (distance_to_object(obj_player) &lt; 100) {
     y = 100 + random(room_height - 200);
 }
 
+map = ds_map_create();
 image_angle = irandom(360);
-rotationspeed = -1 + random(2);
+map[? "rotationspeed"] = -1 + random(2);
 image_speed = 0;
 image_index = irandom(2);
-basedirection = irandom(360);
-direction = basedirection;
-basespeed = 0.5 + random(2);
-speed = basespeed;
-hp = 80 + irandom(20);
+map[? "basedirection"] = irandom(360);
+direction = map[? "basedirection"];
+map[? "basespeed"] = 0.5 + random(2);
+speed = map[? "basespeed"];
+map[? "hp"] = 80 + irandom(20);
 
 // create radar blip
 blip = instance_create(room_width / 2, room_height / 2, obj_radarblip);
@@ -72,9 +73,9 @@ bug = false;
 
 // play explosion animation
 explosion_instance = instance_create(x, y, obj_explosion_l);
-explosion_instance.basedirection = basedirection;
-explosion_instance.basespeed = basespeed;
-explosion_instance.rotationspeed = rotationspeed;
+explosion_instance.map[? "basedirection"] = map[? "basedirection"];
+explosion_instance.map[? "basespeed"] = map[? "basespeed"];
+explosion_instance.map[? "rotationspeed"] = map[? "rotationspeed"];
 
 // spawn mini asteroids
 for (i = 0; i &lt;= random(3); i++) { 
@@ -107,7 +108,7 @@ global.points = global.points + 50;
           <argument>
             <kind>1</kind>
             <string>///rotate sprite
-image_angle += rotationspeed;
+image_angle += map[? "rotationspeed"];
 
 </string>
           </argument>
@@ -130,9 +131,12 @@ image_angle += rotationspeed;
           <argument>
             <kind>1</kind>
             <string>///set distance and speed
+/*
 new_direction_speed[] = set_distance_speed(x, y, basedirection, basespeed, 1);
 direction = new_direction_speed[0];
 speed = new_direction_speed[1];
+*/
+set_object_vector(self);
 
 </string>
           </argument>
@@ -199,13 +203,13 @@ speed = new_direction_speed[1];
             <string>///impact physics
 
 // set new speed and direction after impact
-new_direction_speed[] = set_relative_vector(x, y, basedirection, basespeed, 1, other.image_angle, .2);
-basedirection = new_direction_speed[0];
-basespeed = new_direction_speed[1];
+new_direction_speed[] = set_relative_vector(x, y, map[? "basedirection"], map[? "basespeed"], 1, other.image_angle, .2);
+map[? "basedirection"] = new_direction_speed[0];
+map[? "basespeed"]= new_direction_speed[1];
 
 // limit basespeed
-if (basespeed &gt; 3) {
-    basespeed = 3;
+if (map[? "basespeed"] &gt; 3) {
+    map[? "basespeed"] = 3;
 }
 
 </string>
@@ -238,7 +242,7 @@ if (global.debug) {
     draw_set_valign(fa_middle);
     draw_set_color(c_white);
     draw_set_font(fnt_small);
-    draw_text(x, y, string(hp));
+    draw_text(x, y, string(map[? "hp"]));
     if (bug) {
         draw_sprite(spr_bug, 0, x, y);
     }

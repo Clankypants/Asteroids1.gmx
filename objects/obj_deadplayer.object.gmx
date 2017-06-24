@@ -25,9 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///set timeout
-debris_timeout = 100;
-debris_fade = debris_timeout;
+            <string>///set initial values
+map = ds_map_create();
+map[? "basespeed"] = 0;
+map[? "basedirection"] = 0;
 </string>
           </argument>
         </arguments>
@@ -50,24 +51,12 @@ debris_fade = debris_timeout;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///spin out
+            <string>///rotate sprite
 image_angle += 1;
-
-// destroy debris after timeout
-if (debris_fade &lt;= 0) {
-    instance_destroy();
-}
-
-// count down debris timeout
-if (debris_fade &gt; 0) {
-    debris_fade--;
-}
 </string>
           </argument>
         </arguments>
       </action>
-    </event>
-    <event eventtype="8" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -84,9 +73,54 @@ if (debris_fade &gt; 0) {
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///draw debris
-draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, -1, debris_fade / debris_timeout);
+            <string>///set distance and speed
+/*
+new_direction_speed[] = set_distance_speed(x, y, basedirection, basespeed, 1);
+direction = new_direction_speed[0];
+speed = new_direction_speed[1];
+*/
+set_object_vector(self);
 </string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>601</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_execute_script</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>9</kind>
+            <script>destroy_outside_room</script>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
           </argument>
         </arguments>
       </action>

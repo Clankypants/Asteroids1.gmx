@@ -1,5 +1,5 @@
 ///wrap object
-if (x < -global.worldpadding) x = room_width + global.worldpadding;
-if (x > room_width + global.worldpadding) x = -global.worldpadding;
-if (y < -global.worldpadding) y = room_height + global.worldpadding;
-if (y > room_height + global.worldpadding) y = -global.worldpadding;
+if (x < 0) x = room_width;
+if (x > room_width) x = 0;
+if (y < 0) y = room_height;
+if (y > room_height) y = 0;

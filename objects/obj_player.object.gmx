@@ -78,18 +78,18 @@ var o;
 for (i = 0; i &lt; 6; i++) {
     o = instance_create(x, y, obj_deadplayer);
     o.angle = (i * 60) + randomangle;
-    o.speed = random(3);
-    o.direction = o.angle;
+    o.map[? "basespeed"] = random(3) + 1;
+    o.map[? "basedirection"] = o.angle;
     
     // get the x and y speeds
-    o_x_speed = lengthdir_x(o.speed, o.direction);
-    o_y_speed = lengthdir_y(o.speed, o.direction);
+    o_x_speed = lengthdir_x(o.map[? "basespeed"], o.map[? "basedirection"]);
+    o_y_speed = lengthdir_y(o.map[? "basespeed"], o.map[? "basedirection"]);
     // calculate new x and y speeds for dead player debris
     o_x_speed += global_x_speed;
     o_y_speed += global_y_speed;
     // apply new direction and speed to dead player debris
-    o.speed = point_distance(0, 0, o_x_speed, o_y_speed);
-    o.direction = point_direction(0, 0, o_x_speed, o_y_speed);
+    o.map[? "basespeed"] = point_distance(0, 0, o_x_speed, o_y_speed);
+    o.map[? "basedirection"] = point_direction(0, 0, o_x_speed, o_y_speed);
     
     o.image_angle = o.angle;
 }
@@ -161,7 +161,7 @@ if (!global.warp) {
     // shield flash
     shield_angle = point_direction(x, y, other.x, other.y);
     shield_glow = shield_timer;
-    global.shieldpower -= other.hp / 2;
+    global.shieldpower -= other.map[? "hp"] / 2;
     if (global.shieldpower &lt;= 0) global.shieldpower = 0;
     // generate debris if shields are down
     if (global.shieldpower &lt;= 0) {
@@ -171,8 +171,8 @@ if (!global.warp) {
         x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
         y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
         // get asteroid's speed and direction
-        asteroid_x_speed = lengthdir_x(100, other.basedirection);
-        asteroid_y_speed = lengthdir_y(100, other.basedirection);
+        asteroid_x_speed = lengthdir_x(100, other.map[? "basedirection"]);
+        asteroid_y_speed = lengthdir_y(100, other.map[? "basedirection"]);
         // calculate the new x and y speeds for the player
         x_speed += asteroid_x_speed;
         y_speed += asteroid_y_speed;
@@ -447,9 +447,9 @@ bullet = instance_create(x, y, obj_bullet);
 
 // set speed and direction
 bullet.speed = 15;
-bullet.basespeed = bullet.speed;
+bullet.map[? "basespeed"] = bullet.speed;
 bullet.direction = image_angle;
-bullet.basedirection = bullet.direction;
+bullet.map[? "basedirection"] = bullet.direction;
 bullet.image_angle = image_angle;
 
 // reset shotpower

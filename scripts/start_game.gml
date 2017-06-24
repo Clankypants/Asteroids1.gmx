@@ -10,4 +10,4 @@ global.warp = true;
 warptime = 0;
 global.globaldirection = 0;
 global.globalspeed = 0;
-global.worldpadding = 500;
+//global.worldpadding = 500;

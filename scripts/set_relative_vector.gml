@@ -40,3 +40,32 @@ obj_speed = argument3;
 parallax = argument4;
 
 return set_relative_vector(obj_x, obj_y, obj_direction, obj_speed, parallax, global.globaldirection + 180, global.globalspeed);
+#define set_object_vector
+///set_object_vector(obj)
+
+obj = argument0;
+
+// assign the arguments
+obj_x = obj.x;
+obj_y = obj.y;
+if (ds_map_exists(obj.map, "basedirection")) {
+    obj_direction = obj.map[? "basedirection"];
+} else {
+    obj_direction = 0;
+}
+if (ds_map_exists(obj.map, "basespeed")) {
+    obj_speed = obj.map[? "basespeed"];
+} else {
+    obj_speed = 0;
+}
+if (ds_map_exists(obj.map, "parallax")) {
+    parallax = obj.map[? "parallax"];
+} else {
+    parallax = 1;
+}
+
+// calculate new direction and speed
+new_direction_speed[] = set_relative_vector(obj_x, obj_y, obj_direction, obj_speed, parallax, global.globaldirection + 180, global.globalspeed);
+obj.direction = new_direction_speed[0];
+obj.speed = new_direction_speed[1];
+

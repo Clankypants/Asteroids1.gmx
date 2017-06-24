@@ -26,15 +26,16 @@
           <argument>
             <kind>1</kind>
             <string>///create asteroid
+map = ds_map_create();
 image_angle = irandom(360);
-rotationspeed = -1 + random(2);
+map[? "rotationspeed"] = -1 + random(2);
 image_speed = 0;
 image_index = irandom(2);
-basedirection = irandom(360);
-direction = basedirection;
-basespeed = 0.5 + random(2);
-speed = basespeed;
-hp = 10 + irandom(20);
+map[? "basedirection"] = irandom(360);
+direction = map[? "basedirection"];
+map[? "basespeed"] = 0.5 + random(2);
+speed = map[? "basespeed"];
+map[? "hp"] = 10 + irandom(20);
 
 // create radar blip
 blip = instance_create(room_width / 2, room_height / 2, obj_radarblip);
@@ -67,9 +68,12 @@ bug = false;
 
 // play explosion animation
 explosion_instance = instance_create(x, y, obj_explosion_s);
-explosion_instance.basedirection = basedirection;
-explosion_instance.basespeed = basespeed;
-explosion_instance.rotationspeed = rotationspeed;
+explosion_instance.map[? "basedirection"] = map[? "basedirection"];
+//explosion_instance.basedirection = basedirection;
+explosion_instance.map[? "basespeed"] = map[? "basespeed"];
+//explosion_instance.basespeed = basespeed;
+explosion_instance.map[? "rotationspeed"] = map[? "rotationspeed"];
+//explosion_instance.rotationspeed = rotationspeed;
 
 // score points
 global.points = global.points + 75;
