@@ -7,7 +7,7 @@ global.debug = false;
 global.super = false;
 global.shieldpower = 0;
 global.warp = true;
-warptime = 0;
+global.warptime = 0;
 global.globaldirection = 0;
 global.globalspeed = 0;
-//global.worldpadding = 500;
+

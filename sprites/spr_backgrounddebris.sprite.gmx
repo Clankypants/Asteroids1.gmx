@@ -7,7 +7,7 @@
   <coltolerance>0</coltolerance>
   <sepmasks>0</sepmasks>
   <bboxmode>0</bboxmode>
-  <bbox_left>0</bbox_left>
+  <bbox_left>1</bbox_left>
   <bbox_right>7</bbox_right>
   <bbox_top>0</bbox_top>
   <bbox_bottom>7</bbox_bottom>
@@ -28,13 +28,5 @@
     <frame index="5">images\spr_backgrounddebris_5.png</frame>
     <frame index="6">images\spr_backgrounddebris_6.png</frame>
     <frame index="7">images\spr_backgrounddebris_7.png</frame>
-    <frame index="8">images\spr_backgrounddebris_8.png</frame>
-    <frame index="9">images\spr_backgrounddebris_9.png</frame>
-    <frame index="10">images\spr_backgrounddebris_10.png</frame>
-    <frame index="11">images\spr_backgrounddebris_11.png</frame>
-    <frame index="12">images\spr_backgrounddebris_12.png</frame>
-    <frame index="13">images\spr_backgrounddebris_13.png</frame>
-    <frame index="14">images\spr_backgrounddebris_14.png</frame>
-    <frame index="15">images\spr_backgrounddebris_15.png</frame>
   </frames>
 </sprite>

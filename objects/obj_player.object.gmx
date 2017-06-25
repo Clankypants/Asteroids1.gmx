@@ -46,6 +46,7 @@ thrust = false;
 shield_angle = -1;
 shield_timer = 30;
 shield_glow = 0;
+
 </string>
           </argument>
         </arguments>
@@ -98,6 +99,7 @@ if (global.life &gt; 0) {
 }
 global.globalspeed = 0;
 instance_create(room_width / 2, room_height / 2, obj_screen);
+
 </string>
           </argument>
         </arguments>
@@ -168,11 +170,11 @@ if (!global.warp) {
         instance_destroy();
     } else {
         // get player's current speed
-        x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
-        y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
+        var x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
+        var y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
         // get asteroid's speed and direction
-        asteroid_x_speed = lengthdir_x(100, other.map[? "basedirection"]);
-        asteroid_y_speed = lengthdir_y(100, other.map[? "basedirection"]);
+        var asteroid_x_speed = lengthdir_x(100, other.map[? "basedirection"]);
+        var asteroid_y_speed = lengthdir_y(100, other.map[? "basedirection"]);
         // calculate the new x and y speeds for the player
         x_speed += asteroid_x_speed;
         y_speed += asteroid_y_speed;
@@ -187,6 +189,7 @@ if (!global.warp) {
     // destroy asteroid
     with(other) instance_destroy();
 }
+
 </string>
           </argument>
         </arguments>
@@ -213,6 +216,7 @@ if (!global.warp) {
 if (global.globalspeed &gt; 0) {
     global.globalspeed -= 0.05;
 }
+
 </string>
           </argument>
         </arguments>
@@ -237,6 +241,7 @@ if (global.globalspeed &gt; 0) {
             <kind>1</kind>
             <string>///Turn Right
 image_angle = image_angle - 2;
+
 </string>
           </argument>
         </arguments>
@@ -261,22 +266,19 @@ image_angle = image_angle - 2;
             <kind>1</kind>
             <string>///Thrust
 
-// add thrust power up to max
-//motion_add(image_angle,0.2);
 // get the x and y speed of the current global
-x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
-y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
+var x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
+var y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
 // thrust x and y speeds
-thrust_x_speed = 0.2 * cos(pi / 180 * image_angle);
-thrust_y_speed = 0.2 * sin(pi / 180 * image_angle);
+var thrust_x_speed = 0.2 * cos(pi / 180 * image_angle);
+var thrust_y_speed = 0.2 * sin(pi / 180 * image_angle);
 // calculate the new x and y speeds for global
 x_speed += thrust_x_speed;
 y_speed -= thrust_y_speed;
 // apply new direction and speed to global
 global.globaldirection = point_direction(0, 0, x_speed, y_speed);
 global.globalspeed = point_distance(0, 0, x_speed, y_speed);
-//global.globaldirection = image_angle;
-//global.globalspeed += 0.2;
+// limit globalspeed
 if (global.globalspeed &gt; 5) {
     global.globalspeed = 5;
 }
@@ -307,6 +309,7 @@ draw_sprite_ext(spr_thrust,image_index,x,y,1,1,image_angle,c_white,1);
             <kind>1</kind>
             <string>///Turn Left
 image_angle = image_angle + 2;
+
 </string>
           </argument>
         </arguments>
@@ -357,6 +360,7 @@ draw_sprite_ext(spr_player,1,x,y,1,1,image_angle,-1,1);
 if (shield_glow &gt; 0) {
     draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,-1,shield_glow / shield_timer);
 }
+
 </string>
           </argument>
         </arguments>
@@ -418,6 +422,7 @@ if (global.debug) {
         global.super = true;
     }
 }
+
 </string>
           </argument>
         </arguments>
@@ -443,7 +448,7 @@ if (global.debug) {
             <string>///fire
 
 // create bullet
-bullet = instance_create(x, y, obj_bullet);
+var bullet = instance_create(x, y, obj_bullet);
 
 // set speed and direction
 bullet.speed = 15;
@@ -454,6 +459,7 @@ bullet.image_angle = image_angle;
 
 // reset shotpower
 global.shotpower = 0;
+
 </string>
           </argument>
         </arguments>

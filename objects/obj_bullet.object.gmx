@@ -27,9 +27,6 @@
             <kind>1</kind>
             <string>///create bullet
 
-// set start time for bullet decay
-//start_time = current_time;
-
 map = ds_map_create();
 // store basespeed and basedirection
 map[? "basedirection"] = direction;
@@ -51,6 +48,7 @@ if (map[? "shotpower"] &lt; 25) {
 } else {
     image_index = 4;
 }
+
 </string>
           </argument>
         </arguments>
@@ -59,29 +57,41 @@ if (map[? "shotpower"] &lt; 25) {
     <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
+        <id>601</id>
+        <kind>0</kind>
         <userelative>0</userelative>
         <isquestion>0</isquestion>
         <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
+        <exetype>1</exetype>
+        <functionname>action_execute_script</functionname>
         <codestring></codestring>
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
-            <kind>1</kind>
-            <string>///set distance and speed
-/*
-new_direction_speed[] = set_distance_speed(x, y, basedirection, basespeed, 1);
-direction = new_direction_speed[0];
-speed = new_direction_speed[1];
-*/
-set_object_vector(self);
-
-</string>
+            <kind>9</kind>
+            <script>set_object_vector</script>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string>self</string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
           </argument>
         </arguments>
       </action>
@@ -169,7 +179,7 @@ if (map[? "hp"] &lt;= 0) instance_destroy();
             <kind>1</kind>
             <string>///burst
 // create bulletburst object where bullet dies
-burst = instance_create(x, y, obj_bulletburst);
+var burst = instance_create(x, y, obj_bulletburst);
 burst.image_angle = image_angle;
 burst.map[? "shotpower"] = map[? "shotpower"];
 

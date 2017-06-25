@@ -34,21 +34,27 @@ max_zoom = 1;
 max_w = display_get_width();
 max_h = display_get_height();
 aspect = max_w / max_h;
+
 // calculate max zoom
-max_zoom = floor(max_w / ideal_w);
+var max_zoom_w = floor(max_w / ideal_w);
+var max_zoom_h = floor(max_h / ideal_h);
+if (max_zoom_w &lt; max_zoom_h) {
+    max_zoom = max_zoom_w;
+} else {
+    max_zoom = max_zoom_h;
+}
+
 if (max_w &lt; max_h) { // portait
-    var VIEW_WIDTH = min(ideal_w, max_w);
-    var VIEW_HEIGHT = VIEW_WIDTH / aspect;
-    //if (VIEW_HEIGHT &amp; 1) VIEW_HEIGHT++;
+    var view_w = min(ideal_w, max_w);
+    var view_h = view_w / aspect;
 } else { // landscape
-    var VIEW_HEIGHT = min(ideal_h, max_h);
-    var VIEW_WIDTH = VIEW_HEIGHT * aspect;
-    //if (VIEW_WIDTH &amp; 1) VIEW_WIDTH++;
+    var view_h = min(ideal_h, max_h);
+    var view_w = view_h * aspect;
 }
 
 // set for current room
-view_wview[0] = floor(VIEW_WIDTH);
-view_hview[0] = floor(VIEW_HEIGHT);
+view_wview[0] = floor(view_w);
+view_hview[0] = floor(view_h);
 view_wport[0] = max_w;
 view_hport[0] = max_h;
 
@@ -57,7 +63,7 @@ for (var i = 1; i &lt;= room_last; i++) {
     if (room_exists(i)) {
         view_x = (room_width / 2) - (ideal_w / 2);
         view_y = (room_height / 2) - (ideal_h / 2);
-        room_set_view(i, 0, true, view_x, view_y, floor(VIEW_WIDTH), floor(VIEW_HEIGHT), 0, 0, max_w, max_h, 0, 0, 0, 0, -1);
+        room_set_view(i, 0, true, floor(view_x), floor(view_y), floor(view_w), floor(view_h), 0, 0, max_w, max_h, 0, 0, 0, 0, -1);
     }
 }
 
@@ -66,6 +72,7 @@ window_set_size(ideal_w, ideal_h);
 window_center();
 room_goto(room_next(room));
 
+// set window h/w to detect if they are changed
 window_h = window_get_height();
 window_w = window_get_width();
 
@@ -136,16 +143,24 @@ if (keyboard_check_pressed(ord("F"))) {
 
 // set view size based on window size
 if ((window_h != window_get_height()) || (window_w != window_get_width())) {
-    new_w = max(1, window_get_width());
-    new_h = max(1, window_get_height());
+    var new_w = max(1, window_get_width());
+    var new_h = max(1, window_get_height());
     
     // set zoom
-    zoom_w = floor(new_w / ideal_w);
-    zoom_h = floor(new_h / ideal_h);
+    var zoom_w = floor(new_w / ideal_w);
+    var zoom_h = floor(new_h / ideal_h);
     if (zoom_w &gt; zoom_h) {
-        zoom = zoom_w;
+        if (zoom_w - zoom_h &gt;= 2) {
+            zoom = zoom_h + 1;
+        } else {
+            zoom = zoom_w;
+        }
     } else {
-        zoom = zoom_h;
+        if (zoom_h - zoom_w &gt;= 2) {
+            zoom = zoom_w + 1;
+        } else {
+            zoom = zoom_h;
+        }
     }
     if (zoom &lt; 1) zoom = 1;
     
@@ -162,6 +177,7 @@ if ((window_h != window_get_height()) || (window_w != window_get_width())) {
     
     surface_resize(application_surface, new_w, new_h);
     
+    // set window h/w to detect if they are changed
     window_h = window_get_height();
     window_w = window_get_width();
 }

@@ -27,6 +27,8 @@
             <kind>1</kind>
             <string>///setup
 asteroid = undefined;
+center_x = x;
+center_y = y;
 
 </string>
           </argument>
@@ -56,6 +58,7 @@ if instance_exists(asteroid) {
 } else {
     instance_destroy();
 }
+
 </string>
           </argument>
         </arguments>

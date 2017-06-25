@@ -83,12 +83,12 @@ if (floor(global.shieldpower) &lt; 100) {
 }
 
 // countdown warp time
-if (!global.warp &amp;&amp; warptime &lt;= 0) {
-    warptime = 240;
+if (!global.warp &amp;&amp; global.warptime &lt;= 0) {
+    global.warptime = 240;
 }
 if (global.warp &amp;&amp; !global.debug) {
-    warptime -= 1;
-    if (warptime &lt;= 0) {
+    global.warptime -= 1;
+    if (global.warptime &lt;= 0) {
         global.warp = false;
     }
 }
@@ -97,6 +97,7 @@ if (global.warp &amp;&amp; !global.debug) {
 if (!instance_exists(obj_screen) &amp;&amp; !instance_exists(obj_asteroid)) {
     instance_create(room_width / 2, room_height / 2, obj_screen);
 }
+
 </string>
           </argument>
         </arguments>
@@ -142,6 +143,7 @@ if (global.debug) {
         global.sector = 0;
     }
 }
+
 </string>
           </argument>
         </arguments>
@@ -168,6 +170,7 @@ if (global.debug) {
 if (global.debug) {
     global.sector += 10;
 }
+
 </string>
           </argument>
         </arguments>
@@ -196,6 +199,7 @@ if (global.debug == false) {
 } else {
     global.debug = false;
 }
+
 </string>
           </argument>
         </arguments>
