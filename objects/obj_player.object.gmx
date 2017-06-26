@@ -47,6 +47,9 @@ shield_angle = -1;
 shield_timer = 30;
 shield_glow = 0;
 
+// set rotation speed (for Newtonian rotation)
+//rot_speed = 0;
+
 </string>
           </argument>
         </arguments>
@@ -134,6 +137,24 @@ if (shield_glow &gt; 0) {
     shield_glow--;
 }
 
+/*
+// Newtonian rotation controls
+if (keyboard_key != 0) {
+    switch (keyboard_key) {
+        case vk_left: 
+            rot_speed += 0.1;
+            if (rot_speed &gt; 5) rot_speed = 5;
+            break;
+        case vk_right:
+            rot_speed -= 0.1;
+            if (rot_speed &lt; -5) rot_speed = -5;
+            break;
+    }
+}
+image_angle = image_angle + floor(rot_speed);
+show_debug_message(string(rot_speed));
+*/
+
 </string>
           </argument>
         </arguments>
@@ -173,8 +194,8 @@ if (!global.warp) {
         global.globaldirection = new_direction_speed[0];
         global.globalspeed = new_direction_speed[1];
         // limit globalspeed
-        if (global.globalspeed &gt; 3) {
-            global.globalspeed = 3;
+        if (global.globalspeed &gt; global.speedlimit) {
+            global.globalspeed = global.speedlimit;
         }
     }
     // destroy asteroid
@@ -231,7 +252,7 @@ if (global.globalspeed &gt; 0) {
           <argument>
             <kind>1</kind>
             <string>///Turn Right
-image_angle = image_angle - 2;
+image_angle = image_angle - 3;
 
 </string>
           </argument>
@@ -270,8 +291,8 @@ y_speed += thrust_y_speed;
 global.globaldirection = point_direction(0, 0, x_speed, y_speed);
 global.globalspeed = point_distance(0, 0, x_speed, y_speed);
 // limit globalspeed
-if (global.globalspeed &gt; 5) {
-    global.globalspeed = 5;
+if (global.globalspeed &gt; global.speedlimit) {
+    global.globalspeed = global.speedlimit;
 }
 
 </string>
@@ -297,7 +318,7 @@ if (global.globalspeed &gt; 5) {
           <argument>
             <kind>1</kind>
             <string>///Turn Left
-image_angle = image_angle + 2;
+image_angle = image_angle + 3;
 
 </string>
           </argument>

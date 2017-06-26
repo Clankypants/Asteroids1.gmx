@@ -10,4 +10,5 @@ global.warp = true;
 global.warptime = 0;
 global.globaldirection = 0;
 global.globalspeed = 0;
+global.speedlimit = 5;
 

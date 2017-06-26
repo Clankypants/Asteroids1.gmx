@@ -221,8 +221,8 @@ map[? "basedirection"] = new_direction_speed[0];
 map[? "basespeed"]= new_direction_speed[1];
 
 // limit basespeed
-if (map[? "basespeed"] &gt; 3) {
-    map[? "basespeed"] = 3;
+if (map[? "basespeed"] &gt; global.speedlimit) {
+    map[? "basespeed"] = global.speedlimit;
 }
 
 </string>

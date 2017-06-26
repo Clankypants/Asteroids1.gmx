@@ -164,7 +164,8 @@ image_angle += map[? "rotationspeed"];
           <argument>
             <kind>1</kind>
             <string>///draw background debris
-draw_sprite_ext(sprite_index, image_index, x, y, 1, 1, image_angle, -1, 1);
+var scale = map[? "parallax"];
+draw_sprite_ext(sprite_index, image_index, x, y, scale, scale, image_angle, -1, 1);
 
 </string>
           </argument>
