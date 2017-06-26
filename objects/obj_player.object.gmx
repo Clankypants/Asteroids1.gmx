@@ -169,18 +169,9 @@ if (!global.warp) {
     if (global.shieldpower &lt;= 0) {
         instance_destroy();
     } else {
-        // get player's current speed
-        var x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
-        var y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
-        // get asteroid's speed and direction
-        var asteroid_x_speed = lengthdir_x(100, other.map[? "basedirection"]);
-        var asteroid_y_speed = lengthdir_y(100, other.map[? "basedirection"]);
-        // calculate the new x and y speeds for the player
-        x_speed += asteroid_x_speed;
-        y_speed += asteroid_y_speed;
-        // apply the new direction and speed for the player
-        global.globaldirection = point_direction(x, y, x + x_speed, y + y_speed);
-        global.globalspeed = point_distance(x, y, x + x_speed, y + y_speed);
+        new_direction_speed = set_relative_vector(x, y, global.globaldirection, global.globalspeed, 1, other.map[? "basedirection"], 100);
+        global.globaldirection = new_direction_speed[0];
+        global.globalspeed = new_direction_speed[1];
         // limit globalspeed
         if (global.globalspeed &gt; 3) {
             global.globalspeed = 3;
@@ -271,10 +262,10 @@ var x_speed = lengthdir_x(global.globalspeed, global.globaldirection);
 var y_speed = lengthdir_y(global.globalspeed, global.globaldirection);
 // thrust x and y speeds
 var thrust_x_speed = 0.2 * cos(pi / 180 * image_angle);
-var thrust_y_speed = 0.2 * sin(pi / 180 * image_angle);
+var thrust_y_speed = -0.2 * sin(pi / 180 * image_angle);
 // calculate the new x and y speeds for global
 x_speed += thrust_x_speed;
-y_speed -= thrust_y_speed;
+y_speed += thrust_y_speed;
 // apply new direction and speed to global
 global.globaldirection = point_direction(0, 0, x_speed, y_speed);
 global.globalspeed = point_distance(0, 0, x_speed, y_speed);
@@ -283,8 +274,6 @@ if (global.globalspeed &gt; 5) {
     global.globalspeed = 5;
 }
 
-// draw thrust animation
-draw_sprite_ext(spr_thrust,image_index,x,y,1,1,image_angle,c_white,1);
 </string>
           </argument>
         </arguments>
@@ -336,29 +325,29 @@ image_angle = image_angle + 2;
 
 // draw warp animation
 if (global.warp) {
-    draw_sprite(spr_warp,image_index,x,y);
+    draw_sprite(spr_warp, image_index, x, y);
 }
 
 // draw thruster animations
 if (keyboard_check(vk_up)) {
-    draw_sprite_ext(spr_thrust,image_index,x,y,1,1,image_angle,-1,1);
+    draw_sprite_ext(spr_thrust, image_index, x, y, 1, 1, image_angle, -1, 1);
 }
 if (keyboard_check(vk_left)) {
-    draw_sprite_ext(spr_turnleft,image_index,x,y,1,1,image_angle,-1,1);
+    draw_sprite_ext(spr_turnleft, image_index, x, y, 1, 1, image_angle, -1, 1);
 }
 if (keyboard_check(vk_right)) {
-    draw_sprite_ext(spr_turnright,image_index,x,y,1,1,image_angle,-1,1);
+    draw_sprite_ext(spr_turnright, image_index, x, y, 1, 1, image_angle, -1, 1);
 }
 if (keyboard_check(vk_down)) {
-    draw_sprite_ext(spr_brake,image_index,x,y,1,1,image_angle,-1,1);
+    draw_sprite_ext(spr_brake, image_index, x, y, 1, 1, image_angle, -1, 1);
 }
 
 // draw ship
-draw_sprite_ext(spr_player,1,x,y,1,1,image_angle,-1,1);
+draw_sprite_ext(spr_player, 1, x, y, 1, 1, image_angle, -1, 1);
 
 // draw shield
 if (shield_glow &gt; 0) {
-    draw_sprite_ext(spr_shield,1,x,y,1,1,shield_angle,-1,shield_glow / shield_timer);
+    draw_sprite_ext(spr_shield, 1, x, y, 1, 1, shield_angle, -1, shield_glow / shield_timer);
 }
 
 </string>
