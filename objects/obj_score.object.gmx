@@ -63,7 +63,7 @@ if (instance_exists(obj_player)) {
     draw_text(64, 160, "SHIELDS: " + string(floor(global.shieldpower)));
 }
 if (global.debug) {
-    draw_text(64, 192, "ASTEROIDS: " + string(instance_number(obj_asteroid)) + ", " + string(instance_number(obj_asteroid_s)));
+    draw_text(64, 192, "ASTEROIDS: " + string(instance_number(obj_asteroid_l)) + ", " + string(instance_number(obj_asteroid_s)));
 }
 
 </string>

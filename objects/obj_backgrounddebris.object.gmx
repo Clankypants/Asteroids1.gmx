@@ -29,12 +29,16 @@
 map = ds_map_create();
 x = random(room_width);
 y = random(room_height);
-depth = 100 + random(100);
+depth = irandom_range(100, 200);
 image_angle = irandom(360);
 map[? "rotationspeed"] = -1 + random(2);
 image_speed = 0;
 image_index = irandom(image_number - 1);
 map[? "parallax"] = 100 / depth;
+map[? "basedirection"] = irandom(360);
+direction = map[? "basedirection"];
+map[? "basespeed"] = random(.1) / map[? "parallax"];
+speed = map[? "basespeed"];
 
 </string>
           </argument>

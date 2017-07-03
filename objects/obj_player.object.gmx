@@ -127,11 +127,6 @@ instance_create(room_width / 2, room_height / 2, obj_screen);
             <kind>1</kind>
             <string>///player updates
 
-// if ship passes beyond wrap, rotate ship to point toward center
-if (x &lt; -100 || x &gt; room_width + 100 || y &lt; -100 || y &gt; room_width + 100) {
-    direction = point_direction(x, y, room_width / 2, room_width / 2);
-}
-
 // drop shield glow
 if (shield_glow &gt; 0) {
     shield_glow--;
@@ -160,7 +155,7 @@ show_debug_message(string(rot_speed));
         </arguments>
       </action>
     </event>
-    <event eventtype="4" ename="obj_asteroid">
+    <event eventtype="4" ename="obj_asteroid_l">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -190,13 +185,15 @@ if (!global.warp) {
     if (global.shieldpower &lt;= 0) {
         instance_destroy();
     } else {
-        new_direction_speed = set_relative_vector(x, y, global.globaldirection, global.globalspeed, 1, other.map[? "basedirection"], 100);
+        new_direction = point_direction(other.x, other.y, x, y);
+        new_direction_speed = set_relative_vector(x, y, global.globaldirection, global.globalspeed, 1, new_direction, 20);
         global.globaldirection = new_direction_speed[0];
         global.globalspeed = new_direction_speed[1];
         // limit globalspeed
         if (global.globalspeed &gt; global.speedlimit) {
             global.globalspeed = global.speedlimit;
         }
+        global.speeddirectionupdate = true;
     }
     // destroy asteroid
     with(other) instance_destroy();
@@ -228,6 +225,7 @@ if (!global.warp) {
 if (global.globalspeed &gt; 0) {
     global.globalspeed -= 0.05;
 }
+global.speeddirectionupdate = true;
 
 </string>
           </argument>
@@ -252,7 +250,7 @@ if (global.globalspeed &gt; 0) {
           <argument>
             <kind>1</kind>
             <string>///Turn Right
-image_angle = image_angle - 3;
+image_angle = image_angle - 4;
 
 </string>
           </argument>
@@ -291,9 +289,10 @@ y_speed += thrust_y_speed;
 global.globaldirection = point_direction(0, 0, x_speed, y_speed);
 global.globalspeed = point_distance(0, 0, x_speed, y_speed);
 // limit globalspeed
-if (global.globalspeed &gt; global.speedlimit) {
-    global.globalspeed = global.speedlimit;
+if (global.globalspeed &gt; global.speedlimit + 2) {
+    global.globalspeed = global.speedlimit + 2;
 }
+global.speeddirectionupdate = true;
 
 </string>
           </argument>
@@ -318,7 +317,7 @@ if (global.globalspeed &gt; global.speedlimit) {
           <argument>
             <kind>1</kind>
             <string>///Turn Left
-image_angle = image_angle + 3;
+image_angle = image_angle + 4;
 
 </string>
           </argument>
@@ -372,6 +371,46 @@ if (shield_glow &gt; 0) {
 }
 
 </string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>601</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_execute_script</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>9</kind>
+            <script>layer_3d</script>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string>2</string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
+          </argument>
+          <argument>
+            <kind>0</kind>
+            <string></string>
           </argument>
         </arguments>
       </action>

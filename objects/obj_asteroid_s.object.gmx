@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>obj_asteroid</parentName>
+  <parentName>obj_asteroid_l</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="0" enumb="0">
@@ -36,6 +36,10 @@ direction = map[? "basedirection"];
 map[? "basespeed"] = 0.5 + random(2);
 speed = map[? "basespeed"];
 map[? "hp"] = 10 + irandom(20);
+image_xscale = irandom(1);
+if (image_xscale == 0) image_xscale = -1;
+image_yscale = irandom(1);
+if (image_yscale == 0) image_yscale = -1;
 
 // create radar blip
 blip = instance_create(room_width / 2, room_height / 2, obj_radarblip);
@@ -70,14 +74,13 @@ bug = false;
 // play explosion animation
 explosion_instance = instance_create(x, y, obj_explosion_s);
 explosion_instance.map[? "basedirection"] = map[? "basedirection"];
-//explosion_instance.basedirection = basedirection;
 explosion_instance.map[? "basespeed"] = map[? "basespeed"];
-//explosion_instance.basespeed = basespeed;
 explosion_instance.map[? "rotationspeed"] = map[? "rotationspeed"];
-//explosion_instance.rotationspeed = rotationspeed;
 
 // score points
 global.points = global.points + 75;
+
+global.speeddirectionupdate = true;
 
 </string>
           </argument>

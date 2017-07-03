@@ -30,6 +30,7 @@ map = ds_map_create();
 
 // set animation speed
 image_speed = 1 / 6;
+
 </string>
           </argument>
         </arguments>

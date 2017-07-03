@@ -93,12 +93,12 @@ if (global.sector == 0) { // START
         draw_set_font(fnt_small);
         draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO START!");
     }
-} else if (global.life &gt; 0 &amp;&amp; instance_exists(obj_asteroid)) { // RESPAWN
+} else if (global.life &gt; 0 &amp;&amp; instance_exists(obj_asteroid_l)) { // RESPAWN
     if (text_alpha &gt;= 1.0) {
         draw_set_font(fnt_small);
         draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESPAWN!");
     }
-} else if (global.life &gt; 0 &amp;&amp; !instance_exists(obj_asteroid)) { // NEXT SECTOR
+} else if (global.life &gt; 0 &amp;&amp; !instance_exists(obj_asteroid_l)) { // NEXT SECTOR
     draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "SECTOR CLEAR");
     if (text_alpha &gt;= 1.0) {
         draw_set_font(fnt_small);
@@ -141,7 +141,7 @@ if (text_alpha &gt;= 1.0) {
         if (!instance_exists(obj_player)) {
             instance_create(room_width / 2, room_height / 2, obj_player);
         }
-        if (!instance_exists(obj_asteroid)) {
+        if (!instance_exists(obj_asteroid_l)) {
             global.sector++;
             // load sector
             script_execute(load_sector);

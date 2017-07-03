@@ -17,14 +17,16 @@
     <sprite>sprites\spr_warp</sprite>
     <sprite>sprites\spr_shield</sprite>
     <sprite>sprites\spr_radarblip</sprite>
-    <sprite>sprites\spr_asteroid</sprite>
+    <sprite>sprites\spr_asteroid_l</sprite>
     <sprite>sprites\spr_asteroid_s</sprite>
     <sprite>sprites\spr_explosion_l</sprite>
     <sprite>sprites\spr_explosion_s</sprite>
     <sprite>sprites\spr_backgrounddebris</sprite>
     <sprite>sprites\spr_bug</sprite>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bkg_debrisfield</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\start_game.gml</script>
@@ -33,6 +35,8 @@
     <script>scripts\set_relative_vector.gml</script>
     <script>scripts\set_object_vector.gml</script>
     <script>scripts\destroy_outside_room.gml</script>
+    <script>scripts\canvas_fullscreen.gml</script>
+    <script>scripts\layer_3d.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_big</font>
@@ -48,7 +52,7 @@
     <object>objects\obj_bullet</object>
     <object>objects\obj_bulletburst</object>
     <object>objects\obj_radarblip</object>
-    <object>objects\obj_asteroid</object>
+    <object>objects\obj_asteroid_l</object>
     <object>objects\obj_asteroid_s</object>
     <object>objects\obj_explosion_l</object>
     <object>objects\obj_explosion_s</object>

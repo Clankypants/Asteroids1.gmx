@@ -26,5 +26,6 @@ var new_direction_speed;
 new_direction_speed[0] = point_direction(x, y, x + x_speed, y + y_speed);
 new_direction_speed[1] = point_distance(x, y, x + x_speed, y + y_speed);
 
+global.speeddirectionupdate = true;
 return new_direction_speed;
 

@@ -94,9 +94,34 @@ if (global.warp &amp;&amp; !global.debug) {
 }
 
 // if there are no asteroids or screen
-if (!instance_exists(obj_screen) &amp;&amp; !instance_exists(obj_asteroid)) {
+if (!instance_exists(obj_screen) &amp;&amp; !instance_exists(obj_asteroid_l)) {
     instance_create(room_width / 2, room_height / 2, obj_screen);
 }
+
+// reset speeddirectionupdate after all effects have been applied
+if (global.speeddirectionupdate &amp;&amp; global.speeddirectiontimeout &gt; 0) {
+    global.speeddirectiontimeout--;
+} else {
+    global.speeddirectionupdate = false;
+    global.speeddirectiontimeout = 1;
+}
+
+// scroll background debris fields
+/*
+if (global.speeddirectionupdate) {
+    var bkgspeed_x = lengthdir_x(global.globalspeed, global.globaldirection + 180);
+    var bkgspeed_y = lengthdir_y(global.globalspeed, global.globaldirection + 180);
+    background_vspeed[1] = bkgspeed_y / 5;
+    background_vspeed[2] = bkgspeed_y / 4;
+    background_vspeed[3] = bkgspeed_y / 3;
+    background_vspeed[4] = bkgspeed_y / 2;
+    background_hspeed[1] = bkgspeed_x / 5;
+    background_hspeed[2] = bkgspeed_x / 4;
+    background_hspeed[3] = bkgspeed_x / 3;
+    background_hspeed[4] = bkgspeed_x / 2;
+    global.speeddirectionupdate = false;
+}
+*/
 
 </string>
           </argument>

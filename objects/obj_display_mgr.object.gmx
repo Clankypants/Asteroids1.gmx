@@ -34,6 +34,10 @@ max_zoom = 1;
 max_w = display_get_width();
 max_h = display_get_height();
 aspect = max_w / max_h;
+browser_base_size = 450;
+browser_w = browser_width;
+browser_h = browser_height;
+//canvas_fullscreen(browser_base_size, browser_w, browser_h);
 
 // calculate max zoom
 var max_zoom_w = floor(max_w / ideal_w);
@@ -138,6 +142,11 @@ if (keyboard_check_pressed(ord("F"))) {
         window_set_fullscreen(false);
     } else {
         window_set_fullscreen(true);
+        if (browser_width - 5 != browser_w || browser_height - 5 != browser_h) {
+            browser_w = browser_width - 5;
+            browser_h = browser_height - 5;
+            canvas_fullscreen(browser_base_size, browser_w, browser_h);
+        }
     }
 }
 
@@ -177,7 +186,7 @@ if ((window_h != window_get_height()) || (window_w != window_get_width())) {
     
     surface_resize(application_surface, new_w, new_h);
     
-    // set window h/w to detect if they are changed
+    // set window h/w to detect if they are changed again
     window_h = window_get_height();
     window_w = window_get_width();
 }
