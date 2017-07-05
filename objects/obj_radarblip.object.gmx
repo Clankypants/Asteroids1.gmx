@@ -27,8 +27,7 @@
             <kind>1</kind>
             <string>///setup
 asteroid = undefined;
-center_x = x;
-center_y = y;
+depth = -10
 
 </string>
           </argument>
@@ -52,11 +51,47 @@ center_y = y;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// point at asteroid
-if instance_exists(asteroid) {
-    image_angle = point_direction(x, y, asteroid.x, asteroid.y);
-} else {
+            <string>///destroy if asteroid is destroyed
+if !instance_exists(asteroid) {
     instance_destroy();
+}
+
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///point at asteroid
+if instance_exists(asteroid) {
+    var room_cx = round(room_width / 2);
+    var room_cy = round(room_height / 2);
+    var asteroid_dir = point_direction(room_cx, room_cy, asteroid.x, asteroid.y);
+    var asteroid_dist = point_distance(room_cx, room_cy, asteroid.x, asteroid.y);
+    if (asteroid_dist &lt; 300) {
+        asteroid_dist = 300;
+    } else if (asteroid_dist &gt; 500) {
+        asteroid_dist = 500;
+    }
+    var blip_x = room_cx + (cos(asteroid_dir * pi / 180) * asteroid_dist / 10);
+    var blip_y = room_cy + (sin((asteroid_dir + 180) * pi / 180) * asteroid_dist / 10);
+    draw_sprite(spr_radarblip, image_index, blip_x, blip_y);
 }
 
 </string>

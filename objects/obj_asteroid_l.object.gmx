@@ -41,6 +41,8 @@ direction = map[? "basedirection"];
 map[? "basespeed"] = 0.5 + random(2);
 speed = map[? "basespeed"];
 map[? "hp"] = 80 + irandom(20);
+
+// randomly flip horizontally/vertically
 image_xscale = irandom(1);
 if (image_xscale == 0) image_xscale = -1;
 image_yscale = irandom(1);

@@ -30,12 +30,14 @@ map = ds_map_create();
 image_angle = irandom(360);
 map[? "rotationspeed"] = -1 + random(2);
 image_speed = 0;
-image_index = irandom(2);
+//image_index = irandom(2);
 map[? "basedirection"] = irandom(360);
 direction = map[? "basedirection"];
 map[? "basespeed"] = 0.5 + random(2);
 speed = map[? "basespeed"];
 map[? "hp"] = 10 + irandom(20);
+
+// randomly flip horizontally/vertically
 image_xscale = irandom(1);
 if (image_xscale == 0) image_xscale = -1;
 image_yscale = irandom(1);

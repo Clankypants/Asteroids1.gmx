@@ -25,7 +25,7 @@ if (global.speeddirectionupdate) {
     var alt_speed = global.globalspeed;
     
     // calculate new direction and speed
-    new_direction_speed[] = set_relative_vector(obj_x, obj_y, obj_direction, obj_speed, parallax, alt_direction, alt_speed);
+    var new_direction_speed = set_relative_vector(obj_x, obj_y, obj_direction, obj_speed, parallax, alt_direction, alt_speed);
     obj.direction = new_direction_speed[0];
     obj.speed = new_direction_speed[1];
 }
