@@ -86,17 +86,22 @@ if instance_exists(asteroid) {
     var asteroid_dist = point_distance(room_cx, room_cy, asteroid.x, asteroid.y);
     var scale = ceil(400 / asteroid_dist / 500);
     if (asteroid_dist &gt; 500) {
-        scale = 1;
+        //scale = 1;
+        alpha = 0.4;
     } else if (asteroid_dist &gt; 400) {
-        scale = 2;
+        //scale = 2;
+        alpha = 0.6;
     } else if (asteroid_dist &gt; 300) {
-        scale = 3;
+        //scale = 3;
+        alpha = 0.8;
     } else {
-        scale = 4;
+        //scale = 4;
+        alpha = 1;
     }
     var blip_x = room_cx + (cos(asteroid_dir * pi / 180) * 64);
     var blip_y = room_cy + (sin((asteroid_dir + 180) * pi / 180) * 64);
-    draw_sprite_stretched(spr_radarblip, image_index, blip_x, blip_y, sprite_width * scale, sprite_height * scale);
+    //draw_sprite_stretched(spr_radarblip, image_index, blip_x, blip_y, sprite_width * scale, sprite_height * scale);
+    draw_sprite_ext(spr_radarblip, image_index, blip_x, blip_y, 1, 1, 0, c_white, alpha);
 }
 
 </string>
