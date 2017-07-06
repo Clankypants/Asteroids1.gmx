@@ -28,7 +28,7 @@
             <string>///create asteroid
 map = ds_map_create();
 image_angle = irandom(360);
-map[? "rotationspeed"] = -1 + random(2);
+map[? "rotationspeed"] = -2 + random(4);
 image_speed = 0;
 //image_index = irandom(2);
 map[? "basedirection"] = irandom(360);
