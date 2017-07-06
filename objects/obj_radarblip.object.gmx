@@ -84,8 +84,16 @@ if instance_exists(asteroid) {
     var room_cy = round(room_height / 2);
     var asteroid_dir = point_direction(room_cx, room_cy, asteroid.x, asteroid.y);
     var asteroid_dist = point_distance(room_cx, room_cy, asteroid.x, asteroid.y);
-    var scale = ceil(1000 / asteroid_dist / 4);
-    if (scale &gt; 4) scale = 4;
+    var scale = ceil(400 / asteroid_dist / 500);
+    if (asteroid_dist &gt; 500) {
+        scale = 1;
+    } else if (asteroid_dist &gt; 400) {
+        scale = 2;
+    } else if (asteroid_dist &gt; 300) {
+        scale = 3;
+    } else {
+        scale = 4;
+    }
     if (asteroid_dist &lt; 300) {
         asteroid_dist = 300;
     } else if (asteroid_dist &gt; 500) {
