@@ -112,6 +112,7 @@ if (global.sector == 0) { // START
         draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESTART!");
     }
 }
+draw_set_alpha(1);
 
 </string>
           </argument>
