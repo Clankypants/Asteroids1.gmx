@@ -37,6 +37,7 @@
     <script>scripts\destroy_outside_room.gml</script>
     <script>scripts\canvas_fullscreen.gml</script>
     <script>scripts\layer_3d.gml</script>
+    <script>scripts\update_physics.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\fnt_big</font>
