@@ -51,6 +51,7 @@ if (image_yscale == 0) image_yscale = -1;
 // create radar blip
 blip = instance_create(room_width / 2, room_height / 2, obj_radarblip);
 blip.asteroid = id;
+blip.scale = 2;
 
 bug = false;
 
