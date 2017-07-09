@@ -88,28 +88,28 @@ draw_set_valign(fa_middle);
 draw_set_color(c_white);
 draw_set_font(fnt_big);
 if (global.sector == 0) { // START
-    draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "BLASTEROIDS");
+    draw_text(window_get_width() / 2, window_get_height() / 2 - 64, "BLASTEROIDS");
     if (text_alpha &gt;= 1.0) {
         draw_set_font(fnt_small);
-        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO START!");
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 64, "PRESS &lt;SPACE&gt; TO START!");
     }
 } else if (global.life &gt; 0 &amp;&amp; instance_exists(obj_asteroid_l)) { // RESPAWN
     if (text_alpha &gt;= 1.0) {
         draw_set_font(fnt_small);
-        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESPAWN!");
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 64, "PRESS &lt;SPACE&gt; TO RESPAWN!");
     }
 } else if (global.life &gt; 0 &amp;&amp; !instance_exists(obj_asteroid_l)) { // NEXT SECTOR
-    draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "SECTOR CLEAR");
+    draw_text(window_get_width() / 2, window_get_height() / 2 - 64, "SECTOR CLEAR");
     if (text_alpha &gt;= 1.0) {
         draw_set_font(fnt_small);
-        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO JUMP TO NEXT SECTOR!");
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 64, "PRESS &lt;SPACE&gt; TO JUMP TO NEXT SECTOR!");
     }
 } else { // GAME OVER
-    draw_text(window_get_width() / 2, window_get_height() / 2 - 50, "GAME OVER");
+    draw_text(window_get_width() / 2, window_get_height() / 2 - 64, "GAME OVER");
     draw_text(window_get_width() / 2, window_get_height() / 2, "SCORE: " + string(global.points));
     if (text_alpha &gt;= 1.0) {
         draw_set_font(fnt_small);
-        draw_text(window_get_width() / 2, window_get_height() / 2 + 50, "PRESS &lt;SPACE&gt; TO RESTART!");
+        draw_text(window_get_width() / 2, window_get_height() / 2 + 64, "PRESS &lt;SPACE&gt; TO RESTART!");
     }
 }
 draw_set_alpha(1);

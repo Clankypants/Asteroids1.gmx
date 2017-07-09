@@ -55,15 +55,15 @@ draw_set_halign(fa_left);
 draw_set_valign(fa_top);
 draw_set_color(c_white);
 draw_set_font(fnt_small);
-draw_text(64, 32, "SCORE: " + string(global.points));
-draw_text(64, 64, "SECTOR: " + string(global.sector));
-draw_text(64, 96, "LIVES: " + string(global.life));
+draw_text(32, 32, "SCORE: " + string(global.points));
+draw_text(32, 48, "SECTOR: " + string(global.sector));
+draw_text(32, 64, "LIVES: " + string(global.life));
 if (instance_exists(obj_player)) {
-    draw_text(64, 128, "POWER: " + string(global.shotpower));
-    draw_text(64, 160, "SHIELDS: " + string(floor(global.shieldpower)));
+    draw_text(32, 80, "POWER: " + string(global.shotpower));
+    draw_text(32, 96, "SHIELDS: " + string(floor(global.shieldpower)));
 }
 if (global.debug) {
-    draw_text(64, 192, "ASTEROIDS: " + string(instance_number(obj_asteroid_l)) + ", " + string(instance_number(obj_asteroid_s)));
+    draw_text(32, 112, "ASTEROIDS: " + string(instance_number(obj_asteroid_l)) + ", " + string(instance_number(obj_asteroid_s)));
 }
 
 </string>
