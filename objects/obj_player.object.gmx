@@ -47,9 +47,6 @@ shield_angle = -1;
 shield_timer = 30;
 shield_glow = 0;
 
-// set rotation speed (for Newtonian rotation)
-//rot_speed = 0;
-
 depth = 0;
 
 </string>
@@ -173,24 +170,6 @@ instance_create(room_width / 2, room_height / 2, obj_screen);
 if (shield_glow &gt; 0) {
     shield_glow--;
 }
-
-/*
-// Newtonian rotation controls
-if (keyboard_key != 0) {
-    switch (keyboard_key) {
-        case vk_left: 
-            rot_speed += 0.1;
-            if (rot_speed &gt; 5) rot_speed = 5;
-            break;
-        case vk_right:
-            rot_speed -= 0.1;
-            if (rot_speed &lt; -5) rot_speed = -5;
-            break;
-    }
-}
-image_angle = image_angle + floor(rot_speed);
-show_debug_message(string(rot_speed));
-*/
 
 </string>
           </argument>

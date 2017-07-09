@@ -37,7 +37,6 @@ aspect = max_w / max_h;
 browser_base_size = 450;
 browser_w = browser_width;
 browser_h = browser_height;
-//canvas_fullscreen(browser_base_size, browser_w, browser_h);
 
 // calculate max zoom
 var max_zoom_w = floor(max_w / ideal_w);

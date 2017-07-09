@@ -35,7 +35,6 @@ map = ds_map_create();
 image_angle = irandom(360);
 map[? "rotationspeed"] = -2 + random(4);
 image_speed = 0;
-//image_index = irandom(image_number - 1);
 map[? "basedirection"] = irandom(360);
 direction = map[? "basedirection"];
 map[? "basespeed"] = 0.5 + random(2);
@@ -84,8 +83,6 @@ var explosion_instance = instance_create(x, y, obj_explosion_l);
 explosion_instance.map[? "basedirection"] = map[? "basedirection"];
 explosion_instance.map[? "basespeed"] = map[? "basespeed"];
 explosion_instance.map[? "rotationspeed"] = map[? "rotationspeed"];
-//effect_create_below(ef_explosion, x, y, 1, c_gray);
-//effect_create_below(ef_firework, x, y, 1, c_gray);
 
 // spawn mini asteroids
 for (i = 0; i &lt;= random(3); i++) { 

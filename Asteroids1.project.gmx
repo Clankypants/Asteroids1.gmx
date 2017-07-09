@@ -24,9 +24,7 @@
     <sprite>sprites\spr_backgrounddebris</sprite>
     <sprite>sprites\spr_bug</sprite>
   </sprites>
-  <backgrounds name="background">
-    <background>background\bkg_debrisfield</background>
-  </backgrounds>
+  <backgrounds name="background"/>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\start_game.gml</script>
